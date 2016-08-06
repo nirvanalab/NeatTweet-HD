@@ -8,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.apps.neattweet.Models.Tweet;
 import com.codepath.apps.neattweet.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by vidhurvoora on 8/4/16.
@@ -72,7 +74,10 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<TwitterTimeline
         TextView tvContent = viewHolder.tvTweetContent;
         tvContent.setText(tweet.getContent());
         ImageView ivProfilePic = viewHolder.ivProfilePic;
-        Picasso.with(getContext()).load(tweet.getUser().getProfileImageUrl()).into(ivProfilePic);
+
+        Glide.with(getContext()).load(tweet.getUser().getProfileImageUrl())
+                                .bitmapTransform(new CropCircleTransformation(getContext()))
+                                .into(ivProfilePic);
     }
 
     // Returns the total count of items in the list

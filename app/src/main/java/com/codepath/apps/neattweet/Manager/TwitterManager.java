@@ -1,10 +1,11 @@
 package com.codepath.apps.neattweet.Manager;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.codepath.apps.neattweet.Models.Tweet;
-import com.codepath.apps.neattweet.NeatTwitterApplication;
 import com.codepath.apps.neattweet.Models.TwitterTimelineResponseHandler;
+import com.codepath.apps.neattweet.NeatTwitterApplication;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONArray;
@@ -15,9 +16,6 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-/**
- * Created by vidhurvoora on 8/4/16.
- */
 public class TwitterManager {
 
     private static TwitterManager sInstance;
@@ -68,6 +66,28 @@ public class TwitterManager {
             }
         });
         return null;
+    }
+
+    public void postTweet(Context context, String content, final TweetResponseHandler handler) {
+        client.postTweet(context,content,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    Tweet tweet = new Tweet(response);
+                    handler.onTweetPosted(true,tweet);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    handler.onTweetPosted(false,null);
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                handler.onTweetPosted(false,null);
+            }
+        });
     }
 
 }
