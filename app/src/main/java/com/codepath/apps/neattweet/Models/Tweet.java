@@ -1,16 +1,17 @@
 package com.codepath.apps.neattweet.Models;
 
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.text.SimpleDateFormat;
 
-/**
- * Created by vidhurvoora on 8/4/16.
- */
 public class Tweet {
 
     String createdAt;//created_at
@@ -21,8 +22,12 @@ public class Tweet {
     ArrayList<String> hashTags;
     ArrayList<Media> medias;
     ArrayList<TweetURL> urls;
+    TweetType tweetType;
+    String webCardsBaseUrl = "https://twitter.com/i/cards/tfw/v1/";
+    String relativeDate;
 
     public Tweet(JSONObject tweetObj)throws JSONException {
+
         createdAt = tweetObj.getString("created_at");
         id = tweetObj.getString("id_str");
         Log.d("Tweed Id:",id);
@@ -34,7 +39,10 @@ public class Tweet {
         urls = new ArrayList<TweetURL>();
         hashTags = new ArrayList<String>();
 
+        //default tweet type is text
+        tweetType = TweetType.TextTweet;
         //check if entities object is present
+        relativeDate = getRelativeTimeAgo(createdAt);
 
         if ( tweetObj.has("entities")) {
             JSONObject entities = tweetObj.getJSONObject("entities");
@@ -65,6 +73,15 @@ public class Tweet {
                         TweetURL tweetURL = new TweetURL(urlObj);
                         urls.add(tweetURL);
                     }
+
+                    //set the tweet type as webview type
+                    //tweetType = TweetType.WebviewTweet;
+                    //hack add media object
+//                    Media media = new Media();
+//                    String mediaUrl = webCardsBaseUrl+id;
+//                    media.setMediaUrl(mediaUrl);
+//                    media.setType("photo");
+//                    medias.add(media);
                 }
             }
         }
@@ -77,6 +94,17 @@ public class Tweet {
                 addMediaComponents(mediaArr);
             }
 
+        }
+
+        //determine if it
+        if ( ! medias.isEmpty() ) {
+            tweetType = TweetType.ImageTweet;
+            for (Media media : medias) {
+                if ( media.videoUrl != null ) {
+                    tweetType = TweetType.VideoTweet;
+                    break;
+                }
+            }
         }
     }
 
@@ -92,6 +120,23 @@ public class Tweet {
 
             }
         }
+    }
+
+    public String getRelativeTimeAgo(String rawJsonDate) {
+        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+        sf.setLenient(true);
+
+        String relativeDate = "";
+        try {
+            long dateMillis = sf.parse(rawJsonDate).getTime();
+            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
+                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return relativeDate;
     }
 
     public String getCreatedAt() {
@@ -112,5 +157,26 @@ public class Tweet {
 
     public User getUser() {
         return user;
+    }
+
+    public ArrayList<String> getHashTags() {
+        return hashTags;
+    }
+
+
+    public ArrayList<Media> getMedias() {
+        return medias;
+    }
+
+    public ArrayList<TweetURL> getUrls() {
+        return urls;
+    }
+
+    public TweetType getTweetType() {
+        return tweetType;
+    }
+
+    public String getRelativeDate() {
+        return relativeDate;
     }
 }

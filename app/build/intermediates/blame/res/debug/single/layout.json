@@ -104,6 +104,10 @@
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/notification_template_part_chronometer.xml"
     },
     {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/row_webview_item_timeline.xml",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/res/layout/row_webview_item_timeline.xml"
+    },
+    {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/abc_select_dialog_material.xml",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_select_dialog_material.xml"
     },
@@ -142,6 +146,14 @@
     {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view_list_item.xml",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_activity_chooser_view_list_item.xml"
+    },
+    {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/row_item_common_top.xml",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/res/layout/row_item_common_top.xml"
+    },
+    {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/row_image_item_timeline.xml",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/res/layout/row_image_item_timeline.xml"
     },
     {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/abc_action_bar_up_container.xml",
@@ -198,6 +210,14 @@
     {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_list_menu_item_checkbox.xml"
+    },
+    {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/row_video_item_timeline.xml",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/res/layout/row_video_item_timeline.xml"
+    },
+    {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/row_text_item_timeline.xml",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/res/layout/row_text_item_timeline.xml"
     },
     {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/abc_screen_content_include.xml",

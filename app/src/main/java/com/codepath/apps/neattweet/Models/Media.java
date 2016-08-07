@@ -14,6 +14,9 @@ public class Media {
     String videoType;//video_info->variants->[]->content_type
     String videoUrl; //video_info->variants->[]->url
 
+    public Media() {
+
+    }
     public Media(JSONObject mediaObj) throws JSONException {
         id = mediaObj.getString("id_str");
         mediaUrl = mediaObj.getString("media_url");
@@ -35,5 +38,45 @@ public class Media {
             }
         }
 
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getVideoType() {
+        return videoType;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setVideoType(String videoType) {
+        this.videoType = videoType;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }

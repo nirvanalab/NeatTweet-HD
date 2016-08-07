@@ -77,9 +77,8 @@ public class TwitterManager {
                     handler.onTweetPosted(true,tweet);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    handler.onTweetPosted(false,null);
+                    handler.onTweetPosted(false, null);
                 }
-
 
             }
 

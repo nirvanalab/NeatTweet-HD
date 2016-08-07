@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 public class User {
     String name;
+    String screenName;
     String profileImageUrl; //profile_image_url
     String location; //location
     String id; //id
@@ -22,6 +23,7 @@ public class User {
 
     public User(JSONObject userObj) throws JSONException {
         name = userObj.getString("name");
+        screenName = userObj.getString("screen_name");
         profileImageUrl = userObj.getString("profile_image_url");
         location = userObj.getString("location");
         id = userObj.getString("id");
@@ -36,6 +38,10 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public String getScreenName() {
+        return screenName;
     }
 
     public String getProfileImageUrl() {
@@ -77,4 +83,6 @@ public class User {
     public String getFriendsCount() {
         return friendsCount;
     }
+
+
 }
