@@ -1,20 +1,64 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.codepath.apps.neattweet.Fragment.ComposeTweetFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/ivUserPic"
+        android:layout_margin="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        tools:src="@drawable/heart_icon_black"
+        />
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
+        android:inputType="textMultiLine"
+        android:hint="@string/tweet_text_hint"
+        android:layout_below="@id/ivUserPic"
+        android:gravity="top"
+        android:layout_margin="15dp"
+        android:layout_marginTop="0dp"
+        android:background="@android:color/transparent"
         android:id="@+id/etComposeTweet"/>
-    <Button
-        android:layout_width="wrap_content"
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/composeToolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etComposeTweet"
-        android:text="Post"
-        android:id="@+id/btnPost"/>
+        android:background="?attr/colorPrimary">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_margin="5dp"
+                android:text="@string/tweet_action_text"
+                android:id="@+id/btnPost"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/btnPost"
+                android:layout_centerVertical="true"
+                android:textSize="20sp"
+                android:id="@+id/tvCharCount"
+                android:text="140"/>
+
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.Toolbar>
+
 
 </RelativeLayout>

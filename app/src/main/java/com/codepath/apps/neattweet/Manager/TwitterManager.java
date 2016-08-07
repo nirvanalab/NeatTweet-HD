@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.codepath.apps.neattweet.Models.Tweet;
 import com.codepath.apps.neattweet.Models.TwitterTimelineResponseHandler;
+import com.codepath.apps.neattweet.Models.User;
 import com.codepath.apps.neattweet.NeatTwitterApplication;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -88,7 +89,27 @@ public class TwitterManager {
             }
         });
 
+    }
 
+    public void getCurrentUser( final UserInfoResponseHandler handler){
+        client.getCurrentUserInfo(new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    User user = new User(response);
+                    handler.onUserInfo(true,user);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    handler.onUserInfo(false,null);
+                }
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                handler.onUserInfo(false,null);
+            }
+        });
     }
 
 }

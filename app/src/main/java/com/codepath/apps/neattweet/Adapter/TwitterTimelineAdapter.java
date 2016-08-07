@@ -118,7 +118,6 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             configureWebviewTweet(webViewHolder, position);
         }
 
-
     }
 
     public void configureTextTweet(final TweetTextViewHolder viewHolder, int position) {

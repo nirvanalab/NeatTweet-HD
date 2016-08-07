@@ -2,11 +2,12 @@ package com.codepath.apps.neattweet.Models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 /**
  * Created by vidhurvoora on 8/4/16.
  */
-
+@Parcel
 public class User {
     String name;
     String screenName;
@@ -21,6 +22,9 @@ public class User {
     String statusesCount; //statuses_count
     String friendsCount; //friends_count
 
+    public User(){
+
+    }
     public User(JSONObject userObj) throws JSONException {
         name = userObj.getString("name");
         screenName = userObj.getString("screen_name");
