@@ -21,6 +21,10 @@ public class TweetTextViewHolder_ViewBinding<T extends TweetTextViewHolder> impl
     target.tvUsername = finder.findRequiredViewAsType(source, R.id.tvUsername, "field 'tvUsername'", TextView.class);
     target.tvTweetContent = finder.findRequiredViewAsType(source, R.id.tvTweetContent, "field 'tvTweetContent'", TextView.class);
     target.tvTimeSince = finder.findRequiredViewAsType(source, R.id.tvTimeSince, "field 'tvTimeSince'", TextView.class);
+    target.tvRetweetCount = finder.findRequiredViewAsType(source, R.id.tvRetweetCount, "field 'tvRetweetCount'", TextView.class);
+    target.tvFavCount = finder.findRequiredViewAsType(source, R.id.tvFavCount, "field 'tvFavCount'", TextView.class);
+    target.ivRetweet = finder.findRequiredViewAsType(source, R.id.ivRetweet, "field 'ivRetweet'", ImageView.class);
+    target.ivFav = finder.findRequiredViewAsType(source, R.id.ivFav, "field 'ivFav'", ImageView.class);
   }
 
   @Override
@@ -33,6 +37,10 @@ public class TweetTextViewHolder_ViewBinding<T extends TweetTextViewHolder> impl
     target.tvUsername = null;
     target.tvTweetContent = null;
     target.tvTimeSince = null;
+    target.tvRetweetCount = null;
+    target.tvFavCount = null;
+    target.ivRetweet = null;
+    target.ivFav = null;
 
     this.target = null;
   }

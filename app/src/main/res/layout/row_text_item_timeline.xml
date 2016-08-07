@@ -4,6 +4,21 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-   <include layout="@layout/row_item_common_top"></include>
+   <RelativeLayout android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:id="@+id/textTweetSet"
+      >
+      <include layout="@layout/row_item_common_top"></include>
+   </RelativeLayout>
+
+   <RelativeLayout android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginTop="10dp"
+       android:layout_marginLeft="80dp"
+       android:layout_below="@id/textTweetSet"
+       android:id="@+id/commonActions" >
+      <include layout="@layout/row_item_common_actions"
+          android:layout_height="fill_parent" android:layout_width="match_parent"></include>
+   </RelativeLayout>
 
 </RelativeLayout>

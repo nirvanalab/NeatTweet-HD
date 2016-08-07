@@ -121,7 +121,7 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     }
 
-    public void configureTextTweet(TweetTextViewHolder viewHolder, int position) {
+    public void configureTextTweet(final TweetTextViewHolder viewHolder, int position) {
         Tweet tweet = mTweets.get(position);
 
         viewHolder.getTvName().setText(tweet.getUser().getName());
@@ -130,6 +130,15 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         viewHolder.getTvTimeSince().setText(tweet.getRelativeDate());
         String screenName = "@" + tweet.getUser().getScreenName();
         viewHolder.getTvUsername().setText(screenName);
+
+        viewHolder.getIvRetweet().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewHolder.getIvRetweet().setImageDrawable(getContext().getResources().getDrawable(R.drawable.retweet_icon_gold));
+            }
+        });
+        viewHolder.getTvRetweetCount().setText(Integer.toString(tweet.getRetweetCount()));
+        viewHolder.getTvFavCount().setText(Integer.toString(tweet.getFavoriteCount()));
         ImageView ivProfilePic = viewHolder.getIvProfilePic();
         Glide.with(getContext()).load(tweet.getUser().getProfileImageUrl())
                 .bitmapTransform(new CropCircleTransformation(getContext()))
@@ -139,7 +148,7 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public void configureImageTweet(TweetImageViewHolder viewHolder, int position) {
         configureTextTweet(viewHolder, position);
-        ImageView ivTweetImage = viewHolder.getIvTweetImage();
+        final ImageView ivTweetImage = viewHolder.getIvTweetImage();
         Tweet tweet = mTweets.get(position);
         ArrayList<Media> medias = tweet.getMedias();
         if (!medias.isEmpty()) {
@@ -150,6 +159,21 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 Glide.with(getContext()).load(imagePath).into(ivTweetImage);
             }
         }
+     /*   else {
+          String webSnapshotUrl = tweet.getWebSnapshotUrl();
+            if ( webSnapshotUrl != null ) {
+                //load the image
+                new WebSnapshotAsyncTask(new WebSnapshotAsyncTask.OnTaskCompleted() {
+                    @Override
+                    public void onTaskCompleted(Bitmap snapshot) {
+                        if ( snapshot != null) {
+                            ivTweetImage.setImageBitmap(snapshot);
+                        }
+                    }
+                }).execute(webSnapshotUrl);
+
+            }
+        }*/
     }
 
     public void configureWebviewTweet(TweetWebviewViewHolder viewHolder, int position) {

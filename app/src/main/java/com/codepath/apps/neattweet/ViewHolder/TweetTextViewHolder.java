@@ -20,6 +20,10 @@ public class TweetTextViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvUsername) TextView tvUsername;
     @BindView(R.id.tvTweetContent) TextView tvTweetContent;
     @BindView(R.id.tvTimeSince) TextView tvTimeSince;
+    @BindView(R.id.tvRetweetCount) TextView tvRetweetCount;
+    @BindView(R.id.tvFavCount) TextView tvFavCount;
+    @BindView(R.id.ivRetweet) ImageView ivRetweet;
+    @BindView(R.id.ivFav) ImageView ivFav;
 
     public TweetTextViewHolder(View view) {
         super(view);
@@ -47,6 +51,22 @@ public class TweetTextViewHolder extends RecyclerView.ViewHolder {
         return tvTimeSince;
     }
 
+    public TextView getTvRetweetCount() {
+        return tvRetweetCount;
+    }
+
+    public TextView getTvFavCount() {
+        return tvFavCount;
+    }
+
+    public ImageView getIvRetweet() {
+        return ivRetweet;
+    }
+
+    public ImageView getIvFav() {
+        return ivFav;
+    }
+
     public void setIvProfilePic(ImageView ivProfilePic) {
         this.ivProfilePic = ivProfilePic;
     }
@@ -65,5 +85,21 @@ public class TweetTextViewHolder extends RecyclerView.ViewHolder {
 
     public void setTvTimeSince(TextView tvTimeSince) {
         this.tvTimeSince = tvTimeSince;
+    }
+
+    public void setTvRetweetCount(TextView tvRetweetCount) {
+        this.tvRetweetCount = tvRetweetCount;
+    }
+
+    public void setTvFavCount(TextView tvFavCount) {
+        this.tvFavCount = tvFavCount;
+    }
+
+    public void setIvRetweet(ImageView ivRetweet) {
+        this.ivRetweet = ivRetweet;
+    }
+
+    public void setIvFav(ImageView ivFav) {
+        this.ivFav = ivFav;
     }
 }

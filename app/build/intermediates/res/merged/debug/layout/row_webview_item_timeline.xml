@@ -1,31 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="500dp"
     android:layout_height="500dp ">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <RelativeLayout android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ivProfilePic"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvName"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvUsername"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvTweetContent"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvTimeSince"/>
-    <WebView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/wvTweetWebCard"/>
+        android:layout_alignParentTop="true"
+        android:id="@+id/commonTop" >
+        <include layout="@layout/row_item_common_top"
+            android:layout_height="fill_parent" android:layout_width="match_parent"></include>
+    </RelativeLayout>
 
-</LinearLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/commonTop"
+        android:layout_marginRight="10dp"
+        >
+        <WebView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wvTweetWebCard"/>
+    </FrameLayout>
+
+</RelativeLayout>

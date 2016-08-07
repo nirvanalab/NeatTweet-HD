@@ -1,5 +1,6 @@
 package com.codepath.apps.neattweet.Models;
 
+import android.graphics.drawable.Drawable;
 import android.text.format.DateUtils;
 import android.util.Log;
 
@@ -7,10 +8,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.text.SimpleDateFormat;
 
 public class Tweet {
 
@@ -18,6 +21,9 @@ public class Tweet {
     String id; //id_str
     String content; //text
     int retweetCount; //retweet_count
+    int favoriteCount; //favorite_count
+    boolean isFavorited;//favorited
+    boolean isRetweeted;//retweeted
     User user;
     ArrayList<String> hashTags;
     ArrayList<Media> medias;
@@ -25,6 +31,8 @@ public class Tweet {
     TweetType tweetType;
     String webCardsBaseUrl = "https://twitter.com/i/cards/tfw/v1/";
     String relativeDate;
+    String webSnapshotUrl;
+
 
     public Tweet(JSONObject tweetObj)throws JSONException {
 
@@ -33,6 +41,9 @@ public class Tweet {
         Log.d("Tweed Id:",id);
         content = tweetObj.getString("text");
         retweetCount = tweetObj.getInt("retweet_count");
+        favoriteCount = tweetObj.getInt("favorite_count");
+        isFavorited = tweetObj.getBoolean("favorited");
+        isRetweeted = tweetObj.getBoolean("retweeted");
         JSONObject userObj = tweetObj.getJSONObject("user");
         user = new User(userObj);
         medias = new ArrayList<Media>();
@@ -74,8 +85,18 @@ public class Tweet {
                         urls.add(tweetURL);
                     }
 
+                    //webSnapshotUrl = webCardsBaseUrl+id;
+                    //tweetType = TweetType.ImageTweet;
+
+                    //Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(mediaUrl).getContent());
+
+                   // Drawable snapshot = loadImageFromWebOperations(mediaUrl);
+                   // webSnapshot = snapshot;
+
+
                     //set the tweet type as webview type
                     //tweetType = TweetType.WebviewTweet;
+
                     //hack add media object
 //                    Media media = new Media();
 //                    String mediaUrl = webCardsBaseUrl+id;
@@ -139,6 +160,16 @@ public class Tweet {
         return relativeDate;
     }
 
+    public Drawable loadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public String getCreatedAt() {
         return createdAt;
     }
@@ -178,5 +209,21 @@ public class Tweet {
 
     public String getRelativeDate() {
         return relativeDate;
+    }
+
+    public String getWebSnapshotUrl() {
+        return webSnapshotUrl;
+    }
+
+    public int getFavoriteCount() {
+        return favoriteCount;
+    }
+
+    public boolean isFavorited() {
+        return isFavorited;
+    }
+
+    public boolean isRetweeted() {
+        return isRetweeted;
     }
 }

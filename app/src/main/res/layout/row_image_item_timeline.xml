@@ -23,4 +23,14 @@
 
         android:id="@+id/ivTweetImage"/>
 
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="80dp"
+        android:layout_below="@id/ivTweetImage"
+        android:id="@+id/commonActions" >
+        <include layout="@layout/row_item_common_actions"
+            android:layout_height="fill_parent" android:layout_width="match_parent"></include>
+    </RelativeLayout>
+
 </RelativeLayout>

@@ -37,6 +37,8 @@
         android:layout_below="@id/tvName"
         android:layout_toRightOf="@id/ivProfilePic"
         android:layout_alignLeft="@id/tvName"
+        android:autoLink="all"
+        android:linksClickable="true"
         android:id="@+id/tvTweetContent"/>
 
 </merge>
