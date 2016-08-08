@@ -66,6 +66,7 @@ Describe any challenges encountered while building the app.
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [Android ScalableView](https://github.com/yqritc/Android-ScalableVideoView) - Play video in recycler view
 
 ## License
 
