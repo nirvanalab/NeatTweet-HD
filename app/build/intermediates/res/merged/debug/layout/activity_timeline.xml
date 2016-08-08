@@ -10,30 +10,37 @@
         android:id="@+id/toolbar"
         android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/tbUserPic"
-            tools:src="@drawable/heart_icon_black"
-            />
-        <TextView
+        android:layout_height="100dp"
+        android:background="@color/addTweetBackgroundColor">
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/spacer"
-            tools:text="  "/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tbUsername"
-            tools:text="vidhur"/>
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:id="@+id/tbUserPic"
+                tools:src="@drawable/heart_icon_black"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/tbUserPic"
+                android:layout_centerVertical="true"
+                android:textSize="25sp"
+                android:textColor="@android:color/white"
+                android:id="@+id/tbUsername"
+                tools:text="vidhur"/>
+
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Home"
-            android:textColor="@android:color/black"
+            android:textSize="30sp"
+            android:textColor="@android:color/white"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_gravity="center"
             />
@@ -60,12 +67,14 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_gravity="bottom|right"
             android:layout_margin="25dp"
             android:id="@+id/fabAddTweet"
-            android:src="@drawable/ic_plus_circle_outline_black_48dp"
+            android:src="@drawable/compose_icon"
+            app:fabSize="normal"
+            app:backgroundTint="@color/addTweetBackgroundColor"
             app:layout_anchor="@id/rvTimeline"
             app:layout_anchorGravity="bottom|right|end"
             app:layout_behavior="com.codepath.apps.neattweet.Behavior.ScrollFABBehavior"

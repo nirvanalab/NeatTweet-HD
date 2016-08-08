@@ -36,6 +36,7 @@
         android:layout_marginTop="10dp"
         android:layout_below="@id/videoFrameSet"
         android:layout_marginLeft="80dp"
+        android:layout_marginBottom="10dp"
         android:id="@+id/commonActions" >
         <include layout="@layout/row_item_common_actions"
             android:layout_height="fill_parent" android:layout_width="match_parent"></include>

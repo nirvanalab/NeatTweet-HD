@@ -25,6 +25,7 @@ public class TweetTextViewHolder_ViewBinding<T extends TweetTextViewHolder> impl
     target.tvFavCount = finder.findRequiredViewAsType(source, R.id.tvFavCount, "field 'tvFavCount'", TextView.class);
     target.ivRetweet = finder.findRequiredViewAsType(source, R.id.ivRetweet, "field 'ivRetweet'", ImageView.class);
     target.ivFav = finder.findRequiredViewAsType(source, R.id.ivFav, "field 'ivFav'", ImageView.class);
+    target.ivReply = finder.findRequiredViewAsType(source, R.id.ivReply, "field 'ivReply'", ImageView.class);
   }
 
   @Override
@@ -41,6 +42,7 @@ public class TweetTextViewHolder_ViewBinding<T extends TweetTextViewHolder> impl
     target.tvFavCount = null;
     target.ivRetweet = null;
     target.ivFav = null;
+    target.ivReply = null;
 
     this.target = null;
   }

@@ -112,4 +112,36 @@ public class TwitterManager {
         });
     }
 
+    public void markTweetAsFav(String tweetId, boolean isFav){
+        client.markFavTweet(tweetId,isFav,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                //TODO handle accordingly
+               // super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                //super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
+    }
+
+    public void retweetATweet(String tweetId, boolean isRetweet) {
+        client.retweetATweet(tweetId,isRetweet,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                //TODO handle accordingly
+                //super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                //super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+
+
+        });
+    }
+
 }

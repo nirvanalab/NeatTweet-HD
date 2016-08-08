@@ -35,6 +35,7 @@ public class ComposeTweetFragment extends android.support.v4.app.DialogFragment 
     EditText etComposeTweet;
     Button btnPost;
     private User currentUser;
+    private User replyToUser;
     public ComposeTweetFragment() {
         // Required empty public constructor
     }
@@ -45,14 +46,14 @@ public class ComposeTweetFragment extends android.support.v4.app.DialogFragment 
 
     public TweetPostListener mListener;
 
-    public static ComposeTweetFragment newInstance(User user,boolean isReply,String replyToHandle) {
+    public static ComposeTweetFragment newInstance(User user,boolean isReply,User replyToUser) {
         ComposeTweetFragment fragment = new ComposeTweetFragment();
         Bundle args = new Bundle();
         if ( user != null ) {
             args.putParcelable("user", Parcels.wrap(user));
         }
-        if ( isReply && replyToHandle != null) {
-            args.putString("replyTo",replyToHandle);
+        if ( isReply && replyToUser != null) {
+            args.putParcelable("replyToUser",Parcels.wrap(replyToUser));
         }
         fragment.setArguments(args);
         return fragment;
@@ -71,6 +72,10 @@ public class ComposeTweetFragment extends android.support.v4.app.DialogFragment 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        etComposeTweet = (EditText)view.findViewById(R.id.etComposeTweet);
+        Toolbar toolbar = (Toolbar)view.findViewById(R.id.composeToolbar);
+        final TextView tvCharCount = (TextView) toolbar.findViewById(R.id.tvCharCount);
+
         currentUser = (User) Parcels.unwrap(getArguments().getParcelable("user"));
         if (currentUser != null) {
             ImageView ivUserPic = (ImageView)view.findViewById(R.id.ivUserPic);
@@ -78,9 +83,7 @@ public class ComposeTweetFragment extends android.support.v4.app.DialogFragment 
                     .bitmapTransform(new CropCircleTransformation(getContext()))
                     .into(ivUserPic);
         }
-        etComposeTweet = (EditText)view.findViewById(R.id.etComposeTweet);
-        Toolbar toolbar = (Toolbar)view.findViewById(R.id.composeToolbar);
-        final TextView tvCharCount = (TextView) toolbar.findViewById(R.id.tvCharCount);
+
 
         btnPost = (Button)view.findViewById(R.id.btnPost);
         btnPost.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +126,15 @@ public class ComposeTweetFragment extends android.support.v4.app.DialogFragment 
             }
         });
 
-
+        replyToUser = (User) Parcels.unwrap(getArguments().getParcelable("replyToUser"));
+        if (replyToUser != null ) {
+            TextView tvReplyToInfo = (TextView)view.findViewById(R.id.tvReplyToInfo);
+            tvReplyToInfo.setVisibility(View.VISIBLE);
+            String replyHintText = "Replying to " + replyToUser.getName();
+            tvReplyToInfo.setText(replyHintText);
+            String screenHandler = "@"+ replyToUser.getScreenName()+" ";
+            etComposeTweet.setText(screenHandler);
+        }
 
 
     }

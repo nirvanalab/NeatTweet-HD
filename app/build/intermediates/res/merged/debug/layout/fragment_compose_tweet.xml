@@ -7,22 +7,32 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         android:id="@+id/ivUserPic"
         android:layout_margin="15dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         tools:src="@drawable/heart_icon_black"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivUserPic"
+        android:id="@+id/tvReplyToInfo"
+        android:layout_marginLeft="15dp"
+        android:textSize="20sp"
+        android:textColor="@color/tweetCharCountColor"
+        android:visibility="invisible"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:inputType="textMultiLine"
         android:hint="@string/tweet_text_hint"
-        android:layout_below="@id/ivUserPic"
+        android:layout_below="@id/tvReplyToInfo"
         android:gravity="top"
         android:layout_margin="15dp"
+        android:textSize="30sp"
         android:layout_marginTop="0dp"
         android:background="@android:color/transparent"
         android:id="@+id/etComposeTweet"/>
@@ -44,6 +54,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_margin="5dp"
                 android:text="@string/tweet_action_text"
+                android:textColor="@android:color/white"
+                android:background="@color/addTweetBackgroundColor"
                 android:id="@+id/btnPost"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -54,6 +66,31 @@
                 android:textSize="20sp"
                 android:id="@+id/tvCharCount"
                 android:text="140"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/list_icon"
+                android:layout_toLeftOf="@id/tvCharCount"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:id="@+id/ivListAction"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/camera_icon"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/ivListAction"
+                android:layout_marginLeft="50dp"
+                android:id="@+id/ivCameraAction"/>
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/location_icon"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/ivCameraAction"
+                android:layout_marginLeft="50dp"
+                android:id="@+id/ivLocationAction"/>
 
         </RelativeLayout>
 

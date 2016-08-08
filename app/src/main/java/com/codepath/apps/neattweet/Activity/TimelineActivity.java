@@ -41,7 +41,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     @BindView(R.id.fabAddTweet) FloatingActionButton fabAddTweet;
     @BindView(R.id.toolbar) Toolbar toolbar;
     LinearLayoutManager layoutManager;
-    int fetchCount = 5;
+    int fetchCount = 25;
     User currentUser;
 
     @Override
@@ -62,6 +62,12 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
         fabAddTweet = (FloatingActionButton)findViewById(R.id.fabAddTweet);
 
         rvTimeline.setAdapter(timelineAdapter);
+        timelineAdapter.setOnTweetReplyClickListener(new TwitterTimelineAdapter.OnTweetReplyClickListener() {
+            @Override
+            public void onTweetReplyClicked(Tweet tweet) {
+                onReplyTweet(tweet);
+            }
+        });
 
         setupTimelineView();
         setupSwipeRefresh();
@@ -173,10 +179,17 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetF
     //click event handler for new tweet
     public void onAddNewTweet(View view) {
         FragmentManager fm = getSupportFragmentManager();
-        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance(currentUser);
+        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance(currentUser,false,null);
         composeTweetFragment.mListener = this;
         composeTweetFragment.show(fm,"compose fragment");
 
+    }
+
+    public void onReplyTweet(Tweet tweet){
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance(currentUser,true,tweet.getUser());
+        composeTweetFragment.mListener = this;
+        composeTweetFragment.show(fm,"compose fragment");
     }
 
     @Override

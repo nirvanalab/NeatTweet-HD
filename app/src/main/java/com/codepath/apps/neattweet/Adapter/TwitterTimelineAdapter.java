@@ -1,6 +1,7 @@
 package com.codepath.apps.neattweet.Adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.neattweet.Manager.TwitterManager;
 import com.codepath.apps.neattweet.Models.Media;
 import com.codepath.apps.neattweet.Models.Tweet;
 import com.codepath.apps.neattweet.Models.TweetType;
@@ -33,23 +34,19 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     String webCardsBaseUrl = "https://twitter.com/i/cards/tfw/v1/";
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        public ImageView ivProfilePic;
-        public TextView tvName;
-        public TextView tvTweetContent;
-
-        public ViewHolder(View itemView) {
-
-            super(itemView);
-            ivProfilePic = (ImageView) itemView.findViewById(R.id.ivProfilePic);
-            tvName = (TextView) itemView.findViewById(R.id.tvName);
-            tvTweetContent = (TextView) itemView.findViewById(R.id.tvTweetContent);
-        }
-    }
-
     private ArrayList<Tweet> mTweets;
     private Context mContext;
+
+    // Define listener member variable
+    private static OnTweetReplyClickListener tweetReplyClickListener;
+    // Define the listener interface
+    public interface OnTweetReplyClickListener {
+        void onTweetReplyClicked(Tweet tweet);
+    }
+    // Define the method that allows the parent activity or fragment to define the listener
+    public void setOnTweetReplyClickListener(OnTweetReplyClickListener listener) {
+        this.tweetReplyClickListener = listener;
+    }
 
     public TwitterTimelineAdapter(Context context, ArrayList<Tweet> tweets) {
         mTweets = tweets;
@@ -120,8 +117,22 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     }
 
-    public void configureTextTweet(final TweetTextViewHolder viewHolder, int position) {
-        Tweet tweet = mTweets.get(position);
+    public void setupFonts(TweetTextViewHolder viewHolder){
+        Typeface boldFont = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto_bold.ttf");
+        Typeface regularFont = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto_regular.ttf");
+        viewHolder.getTvName().setTypeface(boldFont);
+        viewHolder.getTvTimeSince().setTypeface(boldFont);
+        viewHolder.getTvFavCount().setTypeface(boldFont);
+        viewHolder.getTvRetweetCount().setTypeface(boldFont);
+        viewHolder.getTvUsername().setTypeface(regularFont);
+        viewHolder.getTvTweetContent().setTypeface(regularFont);
+    }
+
+    public void configureTextTweet(final TweetTextViewHolder viewHolder, final int position) {
+
+        final Tweet tweet = mTweets.get(position);
+
+        setupFonts(viewHolder);
 
         viewHolder.getTvName().setText(tweet.getUser().getName());
         viewHolder.getTvTweetContent().setText(tweet.getContent());
@@ -133,9 +144,49 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         viewHolder.getIvRetweet().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                viewHolder.getIvRetweet().setImageDrawable(getContext().getResources().getDrawable(R.drawable.retweet_icon_gold));
+                if ( !tweet.isRetweeted() ) {
+                    highlightRetweet(viewHolder);
+                    //increment the count
+                    viewHolder.getTvRetweetCount().setText(Integer.toString(tweet.getRetweetCount()+1));
+                    TwitterManager.getSharedInstance().retweetATweet(tweet.getId(),true);
+                }
+                else {
+                    regularRetweet(viewHolder);
+                    //decrement
+                    viewHolder.getTvRetweetCount().setText(Integer.toString(tweet.getRetweetCount()-1));
+                    TwitterManager.getSharedInstance().retweetATweet(tweet.getId(),false);
+                }
             }
         });
+        viewHolder.getIvFav().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (! tweet.isFavorited() ) {
+                    highlightFav(viewHolder);
+                      //increment the count
+                    viewHolder.getTvFavCount().setText(Integer.toString(tweet.getFavoriteCount()+1));
+                    TwitterManager.getSharedInstance().markTweetAsFav(tweet.getId(),true);
+                }
+                else {
+                    regularFav(viewHolder);
+                    viewHolder.getTvFavCount().setText(Integer.toString(tweet.getFavoriteCount()-1));
+                    TwitterManager.getSharedInstance().markTweetAsFav(tweet.getId(),false);
+                }
+
+
+            }
+        });
+        viewHolder.getIvReply().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if ( tweetReplyClickListener != null ) {
+                    Tweet tweet = mTweets.get(position);
+                    tweetReplyClickListener.onTweetReplyClicked(tweet);
+                }
+            }
+        });
+
         viewHolder.getTvRetweetCount().setText(Integer.toString(tweet.getRetweetCount()));
         viewHolder.getTvFavCount().setText(Integer.toString(tweet.getFavoriteCount()));
         ImageView ivProfilePic = viewHolder.getIvProfilePic();
@@ -143,6 +194,39 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 .bitmapTransform(new CropCircleTransformation(getContext()))
                 .into(ivProfilePic);
 
+        //if retweeted set the highlight color
+        if ( tweet.isRetweeted() ) {
+            highlightRetweet(viewHolder);
+        }else {
+            regularRetweet(viewHolder);
+        }
+
+        if ( tweet.isFavorited() ) {
+            highlightFav(viewHolder);
+        }
+        else {
+            regularFav(viewHolder);
+        }
+    }
+
+    public void highlightFav(TweetTextViewHolder viewHolder){
+        viewHolder.getIvFav().setImageDrawable(getContext().getResources().getDrawable(R.drawable.heart_icon_gold_dark));
+        viewHolder.getTvFavCount().setTextColor(getContext().getResources().getColor(R.color.tweetActionHighlightColor));
+    }
+
+    public void regularFav(TweetTextViewHolder viewHolder) {
+        viewHolder.getIvFav().setImageDrawable(getContext().getResources().getDrawable(R.drawable.heart_icon_grey));
+        viewHolder.getTvFavCount().setTextColor(getContext().getResources().getColor(R.color.tweetActionsTextColor));
+    }
+
+    public void highlightRetweet(TweetTextViewHolder viewHolder) {
+        viewHolder.getIvRetweet().setImageDrawable(getContext().getResources().getDrawable(R.drawable.retweet_icon_gold_dark));
+        viewHolder.getTvRetweetCount().setTextColor(getContext().getResources().getColor(R.color.tweetActionHighlightColor));
+    }
+
+    public void regularRetweet(TweetTextViewHolder viewHolder) {
+        viewHolder.getIvRetweet().setImageDrawable(getContext().getResources().getDrawable(R.drawable.retweet_icon_grey));
+        viewHolder.getTvRetweetCount().setTextColor(getContext().getResources().getColor(R.color.tweetActionsTextColor));
     }
 
     public void configureImageTweet(TweetImageViewHolder viewHolder, int position) {

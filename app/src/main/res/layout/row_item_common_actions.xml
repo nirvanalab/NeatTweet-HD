@@ -2,44 +2,55 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
     xmlns:tools="http://schemas.android.com/tools">
 
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:scaleType="fitCenter"
+            android:id="@+id/ivReply"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/reply_icon_grey"
+            />
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:scaleType="fitCenter"
             android:id="@+id/ivRetweet"
-            android:src="@drawable/retweet_icon_black"
+            android:layout_toRightOf="@id/ivReply"
+            android:layout_marginLeft="50dp"
+            android:src="@drawable/retweet_icon_grey"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:layout_toRightOf="@id/ivRetweet"
             android:layout_marginLeft="5dp"
             android:id="@+id/tvRetweetCount"
             tools:text="55"
-            android:textColor="@android:color/black"/>
+            android:textColor="@color/tweetActionsTextColor"/>
 
         <ImageView
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:scaleType="fitCenter"
             android:id="@+id/ivFav"
             android:layout_toRightOf="@id/tvRetweetCount"
-            android:layout_marginLeft="15dp"
-            android:src="@drawable/heart_icon_black"
+            android:layout_marginLeft="50dp"
+            android:src="@drawable/heart_icon_grey"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="20sp"
             android:id="@+id/tvFavCount"
             android:layout_marginLeft="5dp"
             android:layout_toRightOf="@id/ivFav"
             tools:text="55"
-            android:textColor="@android:color/black"/>
+            android:textColor="@color/tweetActionsTextColor"/>
 
 
 </RelativeLayout>

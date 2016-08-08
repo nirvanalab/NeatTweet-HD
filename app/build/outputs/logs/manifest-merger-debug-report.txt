@@ -84,7 +84,7 @@ MERGED from [com.android.support:support-v4:24.1.1] /Users/vidhurvoora/Dev/Andro
 	android:allowBackup
 		ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/AndroidManifest.xml:12:9-35
 	android:icon
-		ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/AndroidManifest.xml:13:9-45
+		ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/AndroidManifest.xml:13:9-49
 	android:theme
 		ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/AndroidManifest.xml:15:9-40
 	android:name

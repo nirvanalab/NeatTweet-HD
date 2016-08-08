@@ -24,6 +24,7 @@ public class TweetTextViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tvFavCount) TextView tvFavCount;
     @BindView(R.id.ivRetweet) ImageView ivRetweet;
     @BindView(R.id.ivFav) ImageView ivFav;
+    @BindView(R.id.ivReply) ImageView ivReply;
 
     public TweetTextViewHolder(View view) {
         super(view);
@@ -65,6 +66,10 @@ public class TweetTextViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView getIvFav() {
         return ivFav;
+    }
+
+    public ImageView getIvReply() {
+        return ivReply;
     }
 
     public void setIvProfilePic(ImageView ivProfilePic) {
