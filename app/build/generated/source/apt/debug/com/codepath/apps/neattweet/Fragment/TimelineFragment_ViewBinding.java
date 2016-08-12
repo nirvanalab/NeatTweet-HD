@@ -11,7 +11,7 @@ import java.lang.IllegalStateException;
 import java.lang.Object;
 import java.lang.Override;
 
-public class TimelineFragment_ViewBinding<T extends TimelineFragment> implements Unbinder {
+public class TimelineFragment_ViewBinding<T extends HomeTimelineFragment> implements Unbinder {
   protected T target;
 
   public TimelineFragment_ViewBinding(T target, Finder finder, Object source) {

@@ -46,11 +46,19 @@
             />
     </android.support.v7.widget.Toolbar>
 
-    <fragment
-        android:name="com.codepath.apps.neattweet.Fragment.TimelineFragment"
-        android:id="@+id/fragmentTimeline"
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabsTweet"
+        app:pstsShouldExpand="true"
+        app:pstsTextAllCaps="true"
+        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"/>
+        android:layout_height="48dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerTweet"
+        android:layout_below="@id/tabsTweet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white" />
 
 </RelativeLayout>

@@ -2,12 +2,16 @@ package com.codepath.apps.neattweet.Activity;
 
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
+import com.astuetz.PagerSlidingTabStrip;
 import com.bumptech.glide.Glide;
+import com.codepath.apps.neattweet.Adapter.TwitterFragmentPagerAdapter;
 import com.codepath.apps.neattweet.Manager.TwitterManager;
 import com.codepath.apps.neattweet.Manager.UserInfoResponseHandler;
 import com.codepath.apps.neattweet.Models.User;
@@ -21,12 +25,21 @@ public class TimelineActivity extends AppCompatActivity  {
 
 
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.tabsTweet) PagerSlidingTabStrip tabsTweet;
+    @BindView(R.id.viewPagerTweet) ViewPager viewPagerTweet ;
     User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        viewPagerTweet = (ViewPager)findViewById(R.id.viewPagerTweet);
+        tabsTweet = (PagerSlidingTabStrip)findViewById(R.id.tabsTweet);
+
+        viewPagerTweet.setAdapter(new TwitterFragmentPagerAdapter(getSupportFragmentManager()));
+        viewPagerTweet.setPageTransformer(true,new RotateUpTransformer());
+        tabsTweet.setViewPager(viewPagerTweet);
 
         //TODO using just butterknife is causing a crash..figure it out
         toolbar = (Toolbar)findViewById(R.id.toolbar);

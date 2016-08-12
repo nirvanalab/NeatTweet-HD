@@ -216,6 +216,10 @@
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_ratingbar_indicator_material.xml"
     },
     {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable/background_tab.xml",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/res/drawable/background_tab.xml"
+    },
+    {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/drawable/abc_list_selector_background_transition_holo_light.xml",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_list_selector_background_transition_holo_light.xml"
     },
