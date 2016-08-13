@@ -1,5 +1,6 @@
 package com.codepath.apps.neattweet.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.codepath.apps.neattweet.Activity.TimelineActivity;
 import com.codepath.apps.neattweet.Adapter.TwitterTimelineAdapter;
 import com.codepath.apps.neattweet.Manager.TwitterManager;
 import com.codepath.apps.neattweet.Models.Tweet;
@@ -23,9 +25,11 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 
-public class TweetBaseFragment extends Fragment implements ComposeTweetFragment.TweetPostListener {
-    ArrayList<Tweet> timeline;
-    TwitterTimelineAdapter timelineAdapter;
+
+
+public class TweetBaseFragment extends Fragment  {
+    public ArrayList<Tweet> timeline;
+    public TwitterTimelineAdapter timelineAdapter;
     @BindView(R.id.rvTimeline)
     RecyclerView rvTimeline;
     @BindView(R.id.swipeContainer)
@@ -39,6 +43,14 @@ public class TweetBaseFragment extends Fragment implements ComposeTweetFragment.
     UserListMode userListMode;
     String mUserId;
 
+    public interface ComposeTweetActionListener {
+        public void onAddNewTweetInitiated();
+        public void onReplyTweetInitiated(Tweet tweet);
+    }
+
+    public ComposeTweetActionListener actionListener;
+
+    TimelineActivity listener;
     public  TweetBaseFragment newInstance(String user_id) {
         TweetBaseFragment baseFragment = new TweetBaseFragment();
         Bundle args = new Bundle();
@@ -58,6 +70,13 @@ public class TweetBaseFragment extends Fragment implements ComposeTweetFragment.
 
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof TimelineActivity ) {
+            actionListener = (TimelineActivity)context;
+        }
+    }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -68,11 +87,22 @@ public class TweetBaseFragment extends Fragment implements ComposeTweetFragment.
         swipeContainer = (SwipeRefreshLayout)view.findViewById(R.id.swipeContainer);
         fabAddTweet = (FloatingActionButton)view.findViewById(R.id.fabAddTweet);
 
+        fabAddTweet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ( actionListener != null ) {
+                    actionListener.onAddNewTweetInitiated();
+                }
+            }
+        });
+
         rvTimeline.setAdapter(timelineAdapter);
         timelineAdapter.setOnTweetReplyClickListener(new TwitterTimelineAdapter.OnTweetReplyClickListener() {
             @Override
             public void onTweetReplyClicked(Tweet tweet) {
-                //TODO onReplyTweet(tweet);
+                if (actionListener != null ) {
+                    actionListener.onReplyTweetInitiated(tweet);
+                }
             }
         });
 
@@ -234,31 +264,6 @@ public class TweetBaseFragment extends Fragment implements ComposeTweetFragment.
         int existingCount = timelineAdapter.getItemCount();
         timeline.clear();
         timelineAdapter.notifyItemRangeRemoved(0,existingCount);
-    }
-
-    //TODO enable this
-    //click event handler for new tweet
-//    public void onAddNewTweet(View view) {
-//        FragmentManager fm = getContext().getSupportFragmentManager();
-//        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance(currentUser,false,null);
-//        composeTweetFragment.mListener = this;
-//        composeTweetFragment.show(fm,"compose fragment");
-//
-//    }
-//
-//    public void onReplyTweet(Tweet tweet){
-//        FragmentManager fm = getSupportFragmentManager();
-//        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance(currentUser,true,tweet.getUser());
-//        composeTweetFragment.mListener = this;
-//        composeTweetFragment.show(fm,"compose fragment");
-//    }
-
-    @Override
-    public void onTweetPosted(Tweet tweet) {
-        //update the existing model
-        timeline.add(0,tweet);
-        timelineAdapter.notifyItemRangeInserted(0,1);
-        layoutManager.scrollToPosition(0);
     }
 
 

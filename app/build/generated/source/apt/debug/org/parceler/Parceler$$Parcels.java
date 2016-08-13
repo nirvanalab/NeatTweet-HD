@@ -6,7 +6,7 @@ import java.util.Map;
 import com.codepath.apps.neattweet.Models.User;
 import com.codepath.apps.neattweet.Models.User$$Parcelable;
 
-@Generated(value = "org.parceler.ParcelAnnotationProcessor", date = "2016-08-13T12:14-0700")
+@Generated(value = "org.parceler.ParcelAnnotationProcessor", date = "2016-08-13T15:27-0700")
 @SuppressWarnings({
     "unchecked",
     "deprecation"

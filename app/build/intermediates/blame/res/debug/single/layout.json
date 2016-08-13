@@ -48,12 +48,12 @@
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/abc_screen_simple.xml"
     },
     {
-        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/row_item_timeline.xml",
-        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/res/layout/row_item_timeline.xml"
-    },
-    {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/support_simple_spinner_dropdown_item.xml",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/support_simple_spinner_dropdown_item.xml"
+    },
+    {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/row_item_timeline.xml",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/res/layout/row_item_timeline.xml"
     },
     {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/abc_search_view.xml",
@@ -68,12 +68,12 @@
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/layout/activity_user_detail.xml"
     },
     {
-        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/design_layout_tab_text.xml",
-        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_layout_tab_text.xml"
-    },
-    {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/notification_template_part_chronometer.xml",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/layout/notification_template_part_chronometer.xml"
+    },
+    {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/layout/design_layout_tab_text.xml",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/design/24.1.1/res/layout/design_layout_tab_text.xml"
     },
     {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_radio.xml",

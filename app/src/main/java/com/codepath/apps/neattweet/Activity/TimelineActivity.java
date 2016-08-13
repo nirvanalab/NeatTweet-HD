@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -19,8 +20,12 @@ import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.neattweet.Adapter.TwitterFragmentPagerAdapter;
+import com.codepath.apps.neattweet.Fragment.ComposeTweetFragment;
+import com.codepath.apps.neattweet.Fragment.HomeTimelineFragment;
+import com.codepath.apps.neattweet.Fragment.TweetBaseFragment;
 import com.codepath.apps.neattweet.Manager.TwitterManager;
 import com.codepath.apps.neattweet.Manager.UserInfoResponseHandler;
+import com.codepath.apps.neattweet.Models.Tweet;
 import com.codepath.apps.neattweet.Models.User;
 import com.codepath.apps.neattweet.R;
 
@@ -31,7 +36,7 @@ import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 
-public class TimelineActivity extends AppCompatActivity  {
+public class TimelineActivity extends AppCompatActivity implements TweetBaseFragment.ComposeTweetActionListener {
 
     @BindView(R.id.drawerLayout)DrawerLayout drawerLayout;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -40,6 +45,7 @@ public class TimelineActivity extends AppCompatActivity  {
     @BindView(R.id.nvView) NavigationView nvView;
     ImageView profilePic;
     User currentUser;
+    TwitterFragmentPagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +53,8 @@ public class TimelineActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_timeline);
         ButterKnife.bind(this);
 
-        viewPagerTweet.setAdapter(new TwitterFragmentPagerAdapter(getSupportFragmentManager()));
+        pagerAdapter = new TwitterFragmentPagerAdapter(getSupportFragmentManager(),this);
+        viewPagerTweet.setAdapter(pagerAdapter);
         viewPagerTweet.setPageTransformer(true, new RotateUpTransformer());
         tabsTweet.setViewPager(viewPagerTweet);
 
@@ -81,6 +88,28 @@ public class TimelineActivity extends AppCompatActivity  {
             }
         });
 
+        // Attach the page change listener inside the activity
+        viewPagerTweet.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            // This method will be invoked when a new page becomes selected.
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            // This method will be invoked when the current page is scrolled
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                // Code goes here
+            }
+
+            // Called when the scroll state changes:
+            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                // Code goes here
+            }
+        });
 
     }
 
@@ -134,5 +163,34 @@ public class TimelineActivity extends AppCompatActivity  {
         super.onPostCreate(savedInstanceState);
     }
 
+//    public void onAddNewTweet(View view) {
+//        FragmentManager fm = getSupportFragmentManager();
+//        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance(currentUser,false,null);
+//        composeTweetFragment.mListener = (HomeTimelineFragment) pagerAdapter.getItem(0);
+//        composeTweetFragment.show(fm,"compose fragment");
+//
+//    }
+//
+//    public void onReplyTweet(Tweet tweet){
+//        FragmentManager fm = getSupportFragmentManager();
+//        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance(currentUser,true,tweet.getUser());
+//        composeTweetFragment.mListener = (HomeTimelineFragment) pagerAdapter.getItem(0);;
+//        composeTweetFragment.show(fm,"compose fragment");
+//    }
 
+    @Override
+    public void onAddNewTweetInitiated() {
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance(currentUser,false,null);
+        composeTweetFragment.mListener = (HomeTimelineFragment) pagerAdapter.getRegisteredFragment(0);
+        composeTweetFragment.show(fm,"compose fragment");
+    }
+
+    @Override
+    public void onReplyTweetInitiated(Tweet tweet) {
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance(currentUser,true,tweet.getUser());
+        composeTweetFragment.mListener = (HomeTimelineFragment) pagerAdapter.getRegisteredFragment(0);
+        composeTweetFragment.show(fm,"compose fragment");
+    }
 }

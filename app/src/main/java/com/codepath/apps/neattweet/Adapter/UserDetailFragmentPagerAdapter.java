@@ -2,7 +2,6 @@ package com.codepath.apps.neattweet.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 
 import com.codepath.apps.neattweet.Fragment.FavsFragment;
 import com.codepath.apps.neattweet.Fragment.RetweetsFragment;
@@ -12,7 +11,7 @@ import com.codepath.apps.neattweet.Fragment.UserTimelineFragment;
 /**
  * Created by vidhurvoora on 8/12/16.
  */
-public class UserDetailFragmentPagerAdapter extends FragmentPagerAdapter {
+public class UserDetailFragmentPagerAdapter extends SmartFragmentStatePagerAdapter {
 
     private String user_id;
     private boolean shouldIncludeRetweets;

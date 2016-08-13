@@ -36,7 +36,6 @@
             app:layout_anchor="@id/rvTimeline"
             app:layout_anchorGravity="bottom|right|end"
             app:layout_behavior="com.codepath.apps.neattweet.Behavior.ScrollFABBehavior"
-            android:onClick="onAddNewTweet"
             />
 
     </android.support.design.widget.CoordinatorLayout>

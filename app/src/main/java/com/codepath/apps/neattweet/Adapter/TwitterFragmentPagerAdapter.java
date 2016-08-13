@@ -2,36 +2,45 @@ package com.codepath.apps.neattweet.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 
 import com.codepath.apps.neattweet.Fragment.DirectMessagesFragment;
 import com.codepath.apps.neattweet.Fragment.HomeTimelineFragment;
 import com.codepath.apps.neattweet.Fragment.ListMode;
 import com.codepath.apps.neattweet.Fragment.MentionsFragment;
+import com.codepath.apps.neattweet.Fragment.TweetBaseFragment;
 import com.codepath.apps.neattweet.Fragment.UserTimelineFragment;
 
 /**
  * Created by vidhurvoora on 8/11/16.
  */
-public class TwitterFragmentPagerAdapter extends FragmentPagerAdapter {
+public class TwitterFragmentPagerAdapter extends SmartFragmentStatePagerAdapter {
 
-    public TwitterFragmentPagerAdapter(FragmentManager fm) {
+    TweetBaseFragment.ComposeTweetActionListener actionListener;
+    public TwitterFragmentPagerAdapter(FragmentManager fm, TweetBaseFragment.ComposeTweetActionListener listener) {
         super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
         if ( position == ListMode.ListModeHomeTimeline.ordinal()) {
-            return new HomeTimelineFragment();
+            HomeTimelineFragment timelineFragment = new HomeTimelineFragment();
+            timelineFragment.actionListener = actionListener;
+            return timelineFragment;
         }
         else if ( position == ListMode.ListModeMentions.ordinal()){
-            return new MentionsFragment();
+            MentionsFragment mentionsFragment = new MentionsFragment();
+            mentionsFragment.actionListener = actionListener;
+            return mentionsFragment;
         }
         else if ( position == ListMode.ListModeDirectMessages.ordinal()){
-            return new DirectMessagesFragment();
+            DirectMessagesFragment messagesFragment =  new DirectMessagesFragment();
+            messagesFragment.actionListener = actionListener;
+            return messagesFragment;
         }
         else if ( position == ListMode.ListModeUserTimeline.ordinal()){
-            return new UserTimelineFragment();
+            UserTimelineFragment userTimelineFragment =  new UserTimelineFragment();
+            userTimelineFragment.actionListener = actionListener;
+            return userTimelineFragment;
         }
         return null;
     }
