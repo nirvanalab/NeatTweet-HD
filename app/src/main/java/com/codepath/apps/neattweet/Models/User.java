@@ -15,7 +15,7 @@ public class User {
     String location; //location
     String id; //id
     String profileTextColour;//profile_text_color
-    long followersCount;//followers_count
+    String followersCount;//followers_count
     String profileBackgroundImageUrl;//profile_background_image_url_https
     String profileBackgroundColor;//profile_background_color
     String description; //description
@@ -38,6 +38,7 @@ public class User {
         description = userObj.getString("description");
         statusesCount = userObj.getString("statuses_count");
         friendsCount = userObj.getString("friends_count");
+        followersCount = userObj.getString("followers_count");
     }
 
     public String getName() {
@@ -64,7 +65,7 @@ public class User {
         return profileTextColour;
     }
 
-    public long getFollowersCount() {
+    public String getFollowersCount() {
         return followersCount;
     }
 
@@ -87,6 +88,7 @@ public class User {
     public String getFriendsCount() {
         return friendsCount;
     }
+
 
 
 }

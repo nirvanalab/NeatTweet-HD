@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_profile"
+                    android:title="Profile" />
+                <item
+                    android:id="@+id/nav_highlights"
+                    android:title="Highlights" />
+                <item
+                    android:id="@+id/nav_lists"
+                    android:title="Lists" />
+                <item
+                    android:id="@+id/nav_connect"
+                    android:title="Connect" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="">
+        <menu xmlns:app="http://schemas.android.com/apk/res-auto">
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_nightmode"
+                    app:actionLayout="@layout/action_view_switch"
+                    android:title="Nightmode" />
+                <item
+                    android:id="@+id/nav_settings"
+                    android:title="Settings" />
+                <item
+                    android:id="@+id/nav_help"
+                    android:title="Help" />
+            </group>
+        </menu>
+    </item>
+
+
+</menu>

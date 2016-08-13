@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="425dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <ImageView
+                    android:id="@+id/ivBackdrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:fitsSystemWindows="false"
+                    android:scaleType="fitXY"
+                    app:layout_collapseMode="parallax" />
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/ivBackdrop"
+                    android:layout_marginLeft="20dp"
+                    android:orientation="vertical">
+
+
+
+
+                    <TextView
+                        android:id="@+id/tvFullname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="30sp"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/tvUsername"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/tweetCharCountColor"
+                         />
+
+                    <TextView
+                        android:id="@+id/tvTagline"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@android:color/black" />
+
+                    <TextView
+                        android:id="@+id/tvLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="18sp"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/tweetCharCountColor" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvFollowing"
+                            android:textSize="25sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@android:color/black" />
+                        <TextView
+                            android:id="@+id/tvFollowingLbl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Following"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:textAllCaps="true"
+                            android:textColor="@color/tweetCharCountColor" />
+
+
+                        <TextView
+                            android:id="@+id/tvFollowers"
+                            android:textSize="25sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="50dp"
+                            android:textColor="@android:color/black" />
+                        <TextView
+                            android:id="@+id/tvFollowersLbl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="20sp"
+                            android:text="Followers"
+                            android:textAllCaps="true"
+                            android:textColor="@color/tweetCharCountColor" />
+
+
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="parallax"
+                android:title="Some blah"
+                android:titleTextColor="@android:color/black"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+        <com.astuetz.PagerSlidingTabStrip
+            android:id="@+id/tabsDetail"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            app:pstsShouldExpand="true"
+            app:pstsTextAllCaps="true" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPagerDetail"
+            android:layout_below="@id/tabsDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+
+             />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/ivProfilePic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginRight="16dp"
+        android:scaleType="center"
+        android:clickable="false"
+        android:src="@drawable/camera_icon"
+        app:layout_anchor="@id/ivBackdrop"
+        app:layout_collapseMode="parallax"
+        app:layout_anchorGravity="bottom|right|end" />
+
+
+
+
+
+</android.support.design.widget.CoordinatorLayout>

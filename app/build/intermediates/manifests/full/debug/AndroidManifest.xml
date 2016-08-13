@@ -46,6 +46,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.codepath.apps.neattweet.Activity.TimelineActivity" />
+        <activity android:name="com.codepath.apps.neattweet.Activity.UserDetailActivity" />
     </application>
 
 </manifest>

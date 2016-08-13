@@ -57,7 +57,7 @@ public class TwitterClient extends OAuthBaseClient {
 	}
 
     public void getDirectMessages(int limit,String maxId,AsyncHttpResponseHandler handler) {
-        String apiUrl = getApiUrl("direct_messages.json");
+        String apiUrl = getApiUrl("direct_messages/sent.json");
         // Can specify query string params directly or through RequestParams.
         RequestParams params = new RequestParams();
         params.put("count", Integer.toString(limit));
@@ -68,7 +68,7 @@ public class TwitterClient extends OAuthBaseClient {
         client.get(apiUrl, params, handler);
     }
 
-    public void getUserTimeline(int limit,String maxId,String screenName,AsyncHttpResponseHandler handler) {
+    public void getUserTimeline(int limit,String maxId,String userId,AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("statuses/user_timeline.json");
         // Can specify query string params directly or through RequestParams.
         RequestParams params = new RequestParams();
@@ -76,11 +76,37 @@ public class TwitterClient extends OAuthBaseClient {
         if (maxId != null ) {
             params.put("max_id",maxId);
         }
-        if (screenName != null ) {
-            params.put("screen_name",screenName);
+        if (userId != null ) {
+            params.put("user_id",userId);
         }
         client.get(apiUrl, params, handler);
     }
+
+	public void getFavs(int limit,String maxId,String userId,AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("favorites/list.json");
+		// Can specify query string params directly or through RequestParams.
+		RequestParams params = new RequestParams();
+		params.put("count", Integer.toString(limit));
+		if (maxId != null ) {
+			params.put("max_id",maxId);
+		}
+		if (userId != null ) {
+			params.put("user_id",userId);
+		}
+		client.get(apiUrl, params, handler);
+	}
+
+	public void getRetweets(int limit,String maxId,AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/retweets_of_me.json");
+
+		// Can specify query string params directly or through RequestParams.
+		RequestParams params = new RequestParams();
+		params.put("count", Integer.toString(limit));
+        if (maxId != null ) {
+            params.put("max_id",maxId);
+        }
+		client.get(apiUrl, params, handler);
+	}
 
 
 	public void postTweet(Context context, String content,AsyncHttpResponseHandler handler) {
@@ -119,5 +145,15 @@ public class TwitterClient extends OAuthBaseClient {
 		client.post(context,apiUrl,params,handler);
 	}
 
+
+    public void getBanner(String userId,AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("users/profile_banner.json");
+        // Can specify query string params directly or through RequestParams.
+        RequestParams params = new RequestParams();
+        if (userId != null ) {
+            params.put("user_id",userId);
+        }
+        client.get(apiUrl, params, handler);
+    }
 
 }

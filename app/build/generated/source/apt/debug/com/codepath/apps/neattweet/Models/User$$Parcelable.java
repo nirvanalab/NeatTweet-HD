@@ -11,7 +11,7 @@ import org.parceler.Generated;
 import org.parceler.ParcelWrapper;
 import org.parceler.ParcelerRuntimeException;
 
-@Generated(value = "org.parceler.ParcelAnnotationProcessor", date = "2016-08-11T14:34-0700")
+@Generated(value = "org.parceler.ParcelAnnotationProcessor", date = "2016-08-13T12:14-0700")
 @SuppressWarnings({
     "unchecked",
     "deprecation"
@@ -51,7 +51,7 @@ public class User$$Parcelable
                 parcel$$1 .writeString(user$$1 .friendsCount);
                 parcel$$1 .writeString(user$$1 .screenName);
                 parcel$$1 .writeString(user$$1 .id);
-                parcel$$1 .writeLong(user$$1 .followersCount);
+                parcel$$1 .writeString(user$$1 .followersCount);
                 parcel$$1 .writeString(user$$1 .profileImageUrl);
                 parcel$$1 .writeString(user$$1 .profileTextColour);
             }
@@ -95,7 +95,7 @@ public class User$$Parcelable
             user$$5 .friendsCount = parcel$$3 .readString();
             user$$5 .screenName = parcel$$3 .readString();
             user$$5 .id = parcel$$3 .readString();
-            user$$5 .followersCount = parcel$$3 .readLong();
+            user$$5 .followersCount = parcel$$3 .readString();
             user$$5 .profileImageUrl = parcel$$3 .readString();
             user$$5 .profileTextColour = parcel$$3 .readString();
             user$$3 = user$$5;

@@ -3,6 +3,8 @@ package com.codepath.apps.neattweet.Manager;
 import android.content.Context;
 import android.util.Log;
 
+import com.codepath.apps.neattweet.Models.Banner;
+import com.codepath.apps.neattweet.Models.BannerResponseHandler;
 import com.codepath.apps.neattweet.Models.Tweet;
 import com.codepath.apps.neattweet.Models.TwitterTimelineResponseHandler;
 import com.codepath.apps.neattweet.Models.User;
@@ -123,9 +125,9 @@ public class TwitterManager {
 
 
 
-    public ArrayList<Tweet> getUserTimeline(int limit,String maxId,String screenName,final TwitterTimelineResponseHandler handler) {
+    public ArrayList<Tweet> getUserTimeline(int limit,String maxId,String userId,final TwitterTimelineResponseHandler handler) {
 
-        client.getUserTimeline(limit,maxId,screenName,new JsonHttpResponseHandler(){
+        client.getUserTimeline(limit,maxId,userId,new JsonHttpResponseHandler(){
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 //parse the jsonarray
@@ -148,6 +150,85 @@ public class TwitterManager {
         return null;
     }
 
+    public Banner getBanner(String userId, final BannerResponseHandler handler) {
+
+        client.getBanner(userId,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                //parse the jsonarray
+                try {
+                    if ( response.has("sizes")) {
+                        JSONObject sizes = response.getJSONObject("sizes");
+                        JSONObject mobileBanner = sizes.getJSONObject("1500x500");
+                        Banner banner = new Banner(mobileBanner);
+                        handler.bannerResults(true,banner);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    handler.bannerResults(false,null);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                //failure
+                Log.d("Failed timeline fetch",errorResponse.toString());
+                handler.bannerResults(false,null);
+            }
+        });
+        return null;
+    }
+
+    public ArrayList<Tweet> getFavs(int limit,String maxId,String userId,final TwitterTimelineResponseHandler handler) {
+
+        client.getFavs(limit,maxId,userId,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                //parse the jsonarray
+                try {
+                    ArrayList<Tweet> timeline = fetchTimelineFromJsonArray(response);
+                    handler.timelineResults(true,timeline);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    handler.timelineResults(false,null);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                //failure
+                Log.d("Failed timeline fetch",errorResponse.toString());
+                handler.timelineResults(false,null);
+            }
+        });
+        return null;
+    }
+
+    public ArrayList<Tweet> getRetweets(int limit,String maxId,final TwitterTimelineResponseHandler handler) {
+
+        client.getRetweets(limit,maxId,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                //parse the jsonarray
+                try {
+                    ArrayList<Tweet> timeline = fetchTimelineFromJsonArray(response);
+                    handler.timelineResults(true,timeline);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    handler.timelineResults(false,null);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                //failure
+                Log.d("Failed timeline fetch",errorResponse.toString());
+                handler.timelineResults(false,null);
+            }
+        });
+        return null;
+    }
 
     public void postTweet(Context context, String content, final TweetResponseHandler handler) {
         client.postTweet(context,content,new JsonHttpResponseHandler(){

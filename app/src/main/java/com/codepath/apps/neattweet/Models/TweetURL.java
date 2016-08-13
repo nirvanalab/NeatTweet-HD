@@ -6,6 +6,7 @@ import org.json.JSONObject;
 /**
  * Created by vidhurvoora on 8/5/16.
  */
+
 public class TweetURL {
     String url;
     String expandedUrl;

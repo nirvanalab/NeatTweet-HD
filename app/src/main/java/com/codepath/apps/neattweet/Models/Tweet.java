@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
+
 public class Tweet {
 
     String createdAt;//created_at
@@ -34,18 +35,30 @@ public class Tweet {
     String webSnapshotUrl;
 
 
+    public Tweet(){
+
+    }
     public Tweet(JSONObject tweetObj)throws JSONException {
 
         createdAt = tweetObj.getString("created_at");
         id = tweetObj.getString("id_str");
         Log.d("Tweed Id:",id);
         content = tweetObj.getString("text");
-        retweetCount = tweetObj.getInt("retweet_count");
-        favoriteCount = tweetObj.getInt("favorite_count");
-        isFavorited = tweetObj.getBoolean("favorited");
-        isRetweeted = tweetObj.getBoolean("retweeted");
-        JSONObject userObj = tweetObj.getJSONObject("user");
-        user = new User(userObj);
+
+        if ( tweetObj.has("retweet_count")) {retweetCount = tweetObj.getInt("retweet_count");}
+        if ( tweetObj.has("favorite_count")) {favoriteCount = tweetObj.getInt("favorite_count");}
+        if ( tweetObj.has("favorited")) {isFavorited = tweetObj.getBoolean("favorited");}
+        if ( tweetObj.has("retweeted")) { isRetweeted = tweetObj.getBoolean("retweeted");}
+        if (tweetObj.has("user")) {
+            JSONObject userObj = tweetObj.getJSONObject("user");
+            user = new User(userObj);
+        }
+        else if ( tweetObj.has("recipient")) {
+            JSONObject userObj = tweetObj.getJSONObject("recipient");
+            user = new User(userObj);
+        }
+
+
         medias = new ArrayList<Media>();
         urls = new ArrayList<TweetURL>();
         hashTags = new ArrayList<String>();

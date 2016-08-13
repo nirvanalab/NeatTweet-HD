@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:2:1-46:12
+ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:2:1-47:12
 	package
 		ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:3:5-42
 		INJECTED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml
@@ -24,7 +24,7 @@ ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/mai
 	android:name
 		ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:8:22-78
 application
-ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:10:5-44:19
+ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:10:5-45:19
 MERGED from [com.android.support:appcompat-v7:24.1.1] /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/AndroidManifest.xml:25:5-20
 MERGED from [com.android.support:animated-vector-drawable:24.1.1] /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/24.1.1/AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:support-vector-drawable:24.1.1] /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/24.1.1/AndroidManifest.xml:23:5-20
@@ -142,9 +142,13 @@ ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/mai
 	android:scheme
 		ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:40:21-43
 activity#com.codepath.apps.neattweet.Activity.TimelineActivity
-ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:43:9-72
+ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:43:9-63
 	android:name
 		ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:43:19-60
+activity#com.codepath.apps.neattweet.Activity.UserDetailActivity
+ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:44:9-74
+	android:name
+		ADDED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml:44:19-62
 uses-sdk
 INJECTED from /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.codepath.libraries:android-oauth-handler:1.0.0] /Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/exploded-aar/com.codepath.libraries/android-oauth-handler/1.0.0/AndroidManifest.xml:7:5-9:41

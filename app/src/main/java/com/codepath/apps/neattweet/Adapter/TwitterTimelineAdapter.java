@@ -1,6 +1,7 @@
 package com.codepath.apps.neattweet.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
@@ -11,16 +12,20 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.codepath.apps.neattweet.Activity.UserDetailActivity;
 import com.codepath.apps.neattweet.Manager.TwitterManager;
 import com.codepath.apps.neattweet.Models.Media;
 import com.codepath.apps.neattweet.Models.Tweet;
 import com.codepath.apps.neattweet.Models.TweetType;
+import com.codepath.apps.neattweet.Models.User;
 import com.codepath.apps.neattweet.R;
 import com.codepath.apps.neattweet.ViewHolder.TweetImageViewHolder;
 import com.codepath.apps.neattweet.ViewHolder.TweetTextViewHolder;
 import com.codepath.apps.neattweet.ViewHolder.TweetVideoViewHolder;
 import com.codepath.apps.neattweet.ViewHolder.TweetWebviewViewHolder;
 import com.yqritc.scalablevideoview.ScalableVideoView;
+
+import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -207,6 +212,19 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         else {
             regularFav(viewHolder);
         }
+
+        //setup on click listner for the individual pic
+        ivProfilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), UserDetailActivity.class);
+                User user = tweet.getUser();
+                intent.putExtra("user", Parcels.wrap(user));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                getContext().startActivity(intent);
+
+            }
+        });
     }
 
     public void highlightFav(TweetTextViewHolder viewHolder){

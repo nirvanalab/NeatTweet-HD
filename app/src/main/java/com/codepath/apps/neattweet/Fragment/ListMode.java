@@ -8,6 +8,8 @@ public enum ListMode {
     ListModeHomeTimeline
     ,ListModeMentions
     ,ListModeUserTimeline
+    ,ListModeDirectMessages
     ,ListModeCount
-    ,ListModeDirectMessages //TODO replace with favs or retweets
+     //TODO replace with favs or retweets
 }
+

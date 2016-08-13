@@ -36,10 +36,26 @@ public class TweetBaseFragment extends Fragment implements ComposeTweetFragment.
     int fetchCount = 25;
     User currentUser;
     ListMode listMode;
+    UserListMode userListMode;
+    String mUserId;
+
+    public  TweetBaseFragment newInstance(String user_id) {
+        TweetBaseFragment baseFragment = new TweetBaseFragment();
+        Bundle args = new Bundle();
+        args.putString("userId", user_id);
+        baseFragment.setArguments(args);
+        return baseFragment;
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //set by derived class?
+        Bundle bundle = getArguments();
+        if ( bundle != null ) {
+            mUserId = bundle.getString("userId");
+        }
+
     }
 
 
@@ -123,8 +139,14 @@ public class TweetBaseFragment extends Fragment implements ComposeTweetFragment.
             fetchDirectMessages(limit,maxId);
         }
         else if (listMode == ListMode.ListModeUserTimeline) {
-            fetchUserTimeline(limit,maxId);
+            fetchUserTimeline(limit,maxId,mUserId);
             //Todo send out screename
+        }
+        else if (userListMode == UserListMode.UserListModeFavs) {
+            fetchFavs(limit,maxId,mUserId);
+        }
+        else if (userListMode == UserListMode.UserListModeRetweets) {
+            fetchRetweets(limit,maxId);
         }
         else {
             fetchHomeTimeline(limit,maxId);
@@ -165,8 +187,8 @@ public class TweetBaseFragment extends Fragment implements ComposeTweetFragment.
         });
     }
 
-    void fetchUserTimeline(int limit,String maxId) {
-        TwitterManager.getSharedInstance().getUserTimeline(limit, maxId,null, new TwitterTimelineResponseHandler() {
+    void fetchUserTimeline(int limit,String maxId,String userId) {
+        TwitterManager.getSharedInstance().getUserTimeline(limit, maxId,userId, new TwitterTimelineResponseHandler() {
             @Override
             public void timelineResults(boolean isSuccess, ArrayList<Tweet> tweets) {
                 if (isSuccess ) {
@@ -175,6 +197,30 @@ public class TweetBaseFragment extends Fragment implements ComposeTweetFragment.
             }
         });
     }
+
+    void fetchFavs(int limit,String maxId,String userId) {
+        TwitterManager.getSharedInstance().getFavs(limit, maxId,userId, new TwitterTimelineResponseHandler() {
+            @Override
+            public void timelineResults(boolean isSuccess, ArrayList<Tweet> tweets) {
+                if (isSuccess ) {
+                    updateTimeline(tweets);
+                }
+            }
+        });
+    }
+
+    void fetchRetweets(int limit,String maxId) {
+        TwitterManager.getSharedInstance().getRetweets(limit,maxId, new TwitterTimelineResponseHandler() {
+            @Override
+            public void timelineResults(boolean isSuccess, ArrayList<Tweet> tweets) {
+                if (isSuccess ) {
+                    updateTimeline(tweets);
+                }
+            }
+        });
+    }
+
+
 
     private void updateTimeline(ArrayList<Tweet> tweets) {
         // record this value before making any changes to the existing list

@@ -4,6 +4,10 @@
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/menu/login.xml"
     },
     {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/menu/drawer_view.xml",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/menu/drawer_view.xml"
+    },
+    {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/menu/login.xml",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/res/menu/login.xml"
     }

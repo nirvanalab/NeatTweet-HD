@@ -13,6 +13,13 @@ import com.codepath.apps.neattweet.R;
  */
 public class UserTimelineFragment extends TweetBaseFragment {
 
+    public static UserTimelineFragment newUserInstance(String userId) {
+        UserTimelineFragment userFragment =  new UserTimelineFragment();
+        Bundle args = new Bundle();
+        args.putString("userId", userId);
+        userFragment.setArguments(args);
+        return userFragment;
+    }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
