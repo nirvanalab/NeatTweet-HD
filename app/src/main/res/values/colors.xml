@@ -9,4 +9,5 @@
     <color name="colorPrimary">#3289CC</color>
     <color name="colorPrimaryDark">#3289CC</color>
     <color name="colorAccent">#3289CC</color>
+    <color name="navViewBackground">#e2b279</color>
 </resources>

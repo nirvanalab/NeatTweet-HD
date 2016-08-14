@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -16,7 +17,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
+import com.ToxicBakery.viewpager.transforms.TabletTransformer;
 import com.astuetz.PagerSlidingTabStrip;
 import com.bumptech.glide.Glide;
 import com.codepath.apps.neattweet.Adapter.TwitterFragmentPagerAdapter;
@@ -25,9 +26,12 @@ import com.codepath.apps.neattweet.Fragment.HomeTimelineFragment;
 import com.codepath.apps.neattweet.Fragment.TweetBaseFragment;
 import com.codepath.apps.neattweet.Manager.TwitterManager;
 import com.codepath.apps.neattweet.Manager.UserInfoResponseHandler;
+import com.codepath.apps.neattweet.Models.Banner;
+import com.codepath.apps.neattweet.Models.BannerResponseHandler;
 import com.codepath.apps.neattweet.Models.Tweet;
 import com.codepath.apps.neattweet.Models.User;
 import com.codepath.apps.neattweet.R;
+import com.codepath.apps.neattweet.Utility.UtilityManager;
 
 import org.parceler.Parcels;
 
@@ -55,7 +59,17 @@ public class TimelineActivity extends AppCompatActivity implements TweetBaseFrag
 
         pagerAdapter = new TwitterFragmentPagerAdapter(getSupportFragmentManager(),this);
         viewPagerTweet.setAdapter(pagerAdapter);
-        viewPagerTweet.setPageTransformer(true, new RotateUpTransformer());
+//        viewPagerTweet.setPageTransformer(true, new ScaleInOutTransformer());
+//        viewPagerTweet.setPageTransformer(true, new StackTransformer());
+        viewPagerTweet.setPageTransformer(true, new TabletTransformer());
+//        viewPagerTweet.setPageTransformer(true, new ForegroundToBackgroundTransformer());
+//        viewPagerTweet.setPageTransformer(true, new DepthPageTransformer());
+//        viewPagerTweet.setPageTransformer(true, new FlipHorizontalTransformer());
+//        viewPagerTweet.setPageTransformer(true, new FlipVerticalTransformer());
+//        viewPagerTweet.setPageTransformer(true, new ZoomOutSlideTransformer());
+//        viewPagerTweet.setPageTransformer(true, new CubeOutTransformer());
+//        viewPagerTweet.setPageTransformer(true, new CubeInTransformer());
+//        viewPagerTweet.setPageTransformer(true,new AccordionTransformer());
         tabsTweet.setViewPager(viewPagerTweet);
 
         setSupportActionBar(toolbar);
@@ -122,10 +136,21 @@ public class TimelineActivity extends AppCompatActivity implements TweetBaseFrag
 //    }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //check if internet is there
+        if (!UtilityManager.getSharedInstance().isNetworkAvailable(this)) {
+            Snackbar.make(drawerLayout, R.string.no_internet_message, Snackbar.LENGTH_INDEFINITE).show();
+        }
+
+    }
+
     private void setupToolbar() {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getCurrentUser();
     }
+
 
     public void getCurrentUser() {
         TwitterManager.getSharedInstance().getCurrentUser(new UserInfoResponseHandler() {
@@ -142,7 +167,7 @@ public class TimelineActivity extends AppCompatActivity implements TweetBaseFrag
                     tbUsername.setText(screenName);
 
                     //setup the nav view header
-                    View headerLayout = nvView.getHeaderView(0);
+                    final View headerLayout = nvView.getHeaderView(0);
                     if ( headerLayout != null ) {
                         ImageView navProfilePic = (ImageView) headerLayout.findViewById(R.id.navTvProfilePic);
                         Glide.with(getApplicationContext()).load(user.getProfileImageUrl())
@@ -152,6 +177,18 @@ public class TimelineActivity extends AppCompatActivity implements TweetBaseFrag
                         navTvFullname.setText(user.getName());
                         TextView navTvUsername = (TextView)headerLayout.findViewById(R.id.navTvUsername);
                         navTvUsername.setText(screenName);
+
+                        //get backdrop
+                        TwitterManager.getSharedInstance().getBanner(user.getId(), new BannerResponseHandler() {
+                            @Override
+                            public void bannerResults(boolean isSuccess, Banner banner) {
+                                if (isSuccess) {
+                                    ImageView ivHeaderBackdrop = (ImageView)headerLayout.findViewById(R.id.ivHeaderBackdrop);
+                                    Glide.with(getApplicationContext()).load(banner.getUrl())
+                                            .into(ivHeaderBackdrop);
+                                }
+                            }
+                        });
                     }
                 }
             }

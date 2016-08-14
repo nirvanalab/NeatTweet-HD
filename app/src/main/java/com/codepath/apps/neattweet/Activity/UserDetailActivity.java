@@ -2,6 +2,8 @@ package com.codepath.apps.neattweet.Activity;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ import com.codepath.apps.neattweet.Models.Banner;
 import com.codepath.apps.neattweet.Models.BannerResponseHandler;
 import com.codepath.apps.neattweet.Models.User;
 import com.codepath.apps.neattweet.R;
+import com.codepath.apps.neattweet.Utility.UtilityManager;
 
 import org.parceler.Parcels;
 
@@ -36,6 +39,7 @@ public class UserDetailActivity extends AppCompatActivity {
     @BindView(R.id.tabsDetail) PagerSlidingTabStrip tabsDetail;
     @BindView(R.id.viewPagerDetail) ViewPager viewPagerDetail ;
     @BindView(R.id.ivBackdrop)ImageView ivBackdrop;
+    @BindView(R.id.main_content)CoordinatorLayout rootLayout;
 
 
     @Override
@@ -94,10 +98,15 @@ public class UserDetailActivity extends AppCompatActivity {
         tvTagline.setTypeface(regularFont);
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        //overridePendingTransition(R.anim.rotate_in, R.anim.hold);
+        //check if internet is there
+        if (!UtilityManager.getSharedInstance().isNetworkAvailable(this)) {
+            Snackbar.make(rootLayout, R.string.no_internet_message, Snackbar.LENGTH_INDEFINITE).show();
+        }
+
     }
 
     @Override
