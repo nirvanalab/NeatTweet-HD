@@ -196,6 +196,10 @@
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.roger.catloadinglibrary/catloadinglibrary/1.0.1/res/drawable-hdpi-v4/mouse.png"
     },
     {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/notification_icon.png",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/drawable-hdpi/notification_icon.png"
+    },
+    {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_list_selector_disabled_holo_light.9.png",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable-hdpi-v4/abc_list_selector_disabled_holo_light.9.png"
     },
@@ -316,8 +320,16 @@
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/res/drawable-hdpi/reply_icon_grey.png"
     },
     {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/home_icon_selected.png",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/drawable-hdpi/home_icon_selected.png"
+    },
+    {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/ic_plus_circle_outline_black_48dp.png",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/drawable-hdpi/ic_plus_circle_outline_black_48dp.png"
+    },
+    {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/message_icon_selected.png",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/drawable-hdpi/message_icon_selected.png"
     },
     {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_tab_indicator_mtrl_alpha.9.png",
@@ -468,6 +480,10 @@
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable-hdpi-v4/abc_ic_star_black_36dp.png"
     },
     {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/notification_icon_selected.png",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/drawable-hdpi/notification_icon_selected.png"
+    },
+    {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/ic_plus_circle_outline_grey600_36dp.png",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/src/main/res/drawable-hdpi/ic_plus_circle_outline_grey600_36dp.png"
     },
@@ -478,6 +494,10 @@
     {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_textfield_search_activated_mtrl_alpha.9.png",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable-hdpi-v4/abc_textfield_search_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/home_icon.png",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/drawable-hdpi/home_icon.png"
     },
     {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/retweet_icon_gold_dark.png",
@@ -600,6 +620,10 @@
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.roger.catloadinglibrary/catloadinglibrary/1.0.1/res/drawable-hdpi-v4/eyes.png"
     },
     {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/person_icon_selected.png",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/drawable-hdpi/person_icon_selected.png"
+    },
+    {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/location_icon.png",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/drawable-hdpi/location_icon.png"
     },
@@ -636,8 +660,16 @@
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable-hdpi-v4/abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/person_icon.png",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/drawable-hdpi/person_icon.png"
+    },
+    {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/abc_ic_menu_share_mtrl_alpha.png",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable-hdpi-v4/abc_ic_menu_share_mtrl_alpha.png"
+    },
+    {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/message_icon.png",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/drawable-hdpi/message_icon.png"
     },
     {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable-hdpi-v4/heart_icon_black.png",

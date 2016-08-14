@@ -3,17 +3,22 @@ package com.codepath.apps.neattweet.Adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.neattweet.Fragment.DirectMessagesFragment;
 import com.codepath.apps.neattweet.Fragment.HomeTimelineFragment;
 import com.codepath.apps.neattweet.Fragment.ListMode;
 import com.codepath.apps.neattweet.Fragment.MentionsFragment;
 import com.codepath.apps.neattweet.Fragment.TweetBaseFragment;
 import com.codepath.apps.neattweet.Fragment.UserTimelineFragment;
+import com.codepath.apps.neattweet.R;
 
 /**
  * Created by vidhurvoora on 8/11/16.
  */
-public class TwitterFragmentPagerAdapter extends SmartFragmentStatePagerAdapter {
+public class TwitterFragmentPagerAdapter extends SmartFragmentStatePagerAdapter implements PagerSlidingTabStrip.IconTabProvider {
+
+    private int tabIcons[] = {R.drawable.home_icon_selected, R.drawable.notification_icon, R.drawable.person_icon,R.drawable.message_icon};
+
 
     TweetBaseFragment.ComposeTweetActionListener actionListener;
     public TwitterFragmentPagerAdapter(FragmentManager fm, TweetBaseFragment.ComposeTweetActionListener listener) {
@@ -67,4 +72,11 @@ public class TwitterFragmentPagerAdapter extends SmartFragmentStatePagerAdapter 
         }
         return null;
     }
+
+    @Override
+    public int getPageIconResId(int position) {
+        return tabIcons[position];
+    }
+
+
 }

@@ -9,6 +9,9 @@ import com.loopj.android.http.RequestParams;
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /*
  * 
  * This is the object responsible for communicating with a REST API. 
@@ -108,6 +111,29 @@ public class TwitterClient extends OAuthBaseClient {
 		client.get(apiUrl, params, handler);
 	}
 
+    public void getFollowers(int limit,String userId,AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("followers/list.json");
+        // Can specify query string params directly or through RequestParams.
+        RequestParams params = new RequestParams();
+        params.put("count", Integer.toString(limit));
+        if (userId != null ) {
+            params.put("user_id",userId);
+        }
+        params.put("include_user_entities",true);
+        client.get(apiUrl, params, handler);
+    }
+
+    public void getFriends(int limit,String userId,AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("friends/list.json");
+        // Can specify query string params directly or through RequestParams.
+        RequestParams params = new RequestParams();
+        params.put("count", Integer.toString(limit));
+        if (userId != null ) {
+            params.put("user_id",userId);
+        }
+        params.put("include_user_entities",true);
+        client.get(apiUrl, params, handler);
+    }
 
 	public void postTweet(Context context, String content,AsyncHttpResponseHandler handler) {
 		String apiUrl = getApiUrl("statuses/update.json");
@@ -154,6 +180,18 @@ public class TwitterClient extends OAuthBaseClient {
             params.put("user_id",userId);
         }
         client.get(apiUrl, params, handler);
+    }
+
+    public void searchTweets(String query,AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("search/tweets.json");
+        RequestParams params = new RequestParams();
+        try {
+            params.put("q",URLEncoder.encode(query,"UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        params.put("result_type","recent");
+        client.get(apiUrl,params,handler);
     }
 
 }

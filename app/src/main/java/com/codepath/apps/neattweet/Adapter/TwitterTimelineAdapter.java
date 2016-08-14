@@ -2,6 +2,7 @@ package com.codepath.apps.neattweet.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.neattweet.Activity.UserDetailActivity;
@@ -19,6 +21,7 @@ import com.codepath.apps.neattweet.Models.Tweet;
 import com.codepath.apps.neattweet.Models.TweetType;
 import com.codepath.apps.neattweet.Models.User;
 import com.codepath.apps.neattweet.R;
+import com.codepath.apps.neattweet.Utility.PatternEditableBuilder;
 import com.codepath.apps.neattweet.ViewHolder.TweetImageViewHolder;
 import com.codepath.apps.neattweet.ViewHolder.TweetTextViewHolder;
 import com.codepath.apps.neattweet.ViewHolder.TweetVideoViewHolder;
@@ -29,6 +32,7 @@ import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -38,9 +42,9 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     String webCardsBaseUrl = "https://twitter.com/i/cards/tfw/v1/";
-
     private ArrayList<Tweet> mTweets;
     private Context mContext;
+
 
     // Define listener member variable
     private static OnTweetReplyClickListener tweetReplyClickListener;
@@ -81,7 +85,8 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         LayoutInflater inflater = LayoutInflater.from(context);
         RecyclerView.ViewHolder viewHolder = null;
 
-        if (viewType == TweetType.TextTweet.ordinal()) {
+        if (viewType == TweetType.TextTweet.ordinal()
+                || viewType == TweetType.UserItemTweet.ordinal()) {
             //inflate the text tweet layout
             View textTweetView = inflater.inflate(R.layout.row_text_item_timeline, parent, false);
             viewHolder = new TweetTextViewHolder(textTweetView);
@@ -106,7 +111,8 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        if (holder.getItemViewType() == TweetType.TextTweet.ordinal()) {
+        if (holder.getItemViewType() == TweetType.TextTweet.ordinal()
+                || holder.getItemViewType() == TweetType.UserItemTweet.ordinal()) {
             TweetTextViewHolder textViewHolder = (TweetTextViewHolder) holder;
             configureTextTweet(textViewHolder, position);
         } else if (holder.getItemViewType() == TweetType.ImageTweet.ordinal()) {
@@ -137,14 +143,45 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         final Tweet tweet = mTweets.get(position);
 
+
+
         setupFonts(viewHolder);
 
         viewHolder.getTvName().setText(tweet.getUser().getName());
-        viewHolder.getTvTweetContent().setText(tweet.getContent());
-
         viewHolder.getTvTimeSince().setText(tweet.getRelativeDate());
         String screenName = "@" + tweet.getUser().getScreenName();
         viewHolder.getTvUsername().setText(screenName);
+
+        TextView tvUsername = viewHolder.getTvUsername();
+        // Style clickable spans based on pattern
+        //show activity if they click a username
+        new PatternEditableBuilder().
+                addPattern(Pattern.compile("\\@(\\w+)"), Color.BLUE,
+                        new PatternEditableBuilder.SpannableClickedListener() {
+                            @Override
+                            public void onSpanClicked(String text) {
+                                Intent intent = new Intent(getContext(), UserDetailActivity.class);
+                                User user = tweet.getUser();
+                                intent.putExtra("user", Parcels.wrap(user));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                getContext().startActivity(intent);
+                            }
+                        }).into(tvUsername);
+
+        viewHolder.getTvTweetContent().setText(tweet.getContent());
+        new PatternEditableBuilder().
+                addPattern(Pattern.compile("\\@(\\w+)"), Color.BLUE,
+                        new PatternEditableBuilder.SpannableClickedListener() {
+                            @Override
+                            public void onSpanClicked(String text) {
+                                //for now show the current user
+                                Intent intent = new Intent(getContext(), UserDetailActivity.class);
+                                User user = tweet.getUser();
+                                intent.putExtra("user", Parcels.wrap(user));
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                getContext().startActivity(intent);
+                            }
+                        }).into(viewHolder.getTvTweetContent());
 
         viewHolder.getIvRetweet().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,8 +214,6 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     viewHolder.getTvFavCount().setText(Integer.toString(tweet.getFavoriteCount()-1));
                     TwitterManager.getSharedInstance().markTweetAsFav(tweet.getId(),false);
                 }
-
-
             }
         });
         viewHolder.getIvReply().setOnClickListener(new View.OnClickListener() {
@@ -225,6 +260,17 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
             }
         });
+
+        if ( tweet.getTweetType() == TweetType.UserItemTweet) {
+            //hide the action components
+            viewHolder.getIvFav().setVisibility(View.INVISIBLE);
+            viewHolder.getTvFavCount().setVisibility(View.INVISIBLE);
+
+            viewHolder.getIvRetweet().setVisibility(View.INVISIBLE);
+            viewHolder.getTvRetweetCount().setVisibility(View.INVISIBLE);
+
+            viewHolder.getIvReply().setVisibility(View.INVISIBLE);
+        }
     }
 
     public void highlightFav(TweetTextViewHolder viewHolder){

@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
@@ -85,6 +86,47 @@ public class UserDetailActivity extends AppCompatActivity {
 //        CollapsingToolbarLayout collapsingToolbar =
 //                (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
 //        collapsingToolbar.setTitle(user.getName());
+
+        tabsDetail.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//                LinearLayout view = (LinearLayout) tabsDetail.getChildAt(0);
+//                TextView itemView = (TextView) view.getChildAt(position);
+//                itemView.setTextColor(getResources().getColor(R.color.tweetCharCountColor));
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                resetTabTextColors();
+                LinearLayout view = (LinearLayout) tabsDetail.getChildAt(0);
+                TextView itemView = (TextView) view.getChildAt(position);
+                itemView.setTextColor(getResources().getColor(R.color.addTweetBackgroundColor));
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        //first item default color
+        LinearLayout view = (LinearLayout) tabsDetail.getChildAt(0);
+        TextView itemView = (TextView) view.getChildAt(0);
+        if (itemView != null ) {
+            itemView.setTextColor(getResources().getColor(R.color.addTweetBackgroundColor));
+        }
+    }
+
+    void resetTabTextColors(){
+        int totalCount = tabsDetail.getChildCount();
+        for (int i = 0 ; i< 5;i++) {
+            LinearLayout view = (LinearLayout) tabsDetail.getChildAt(0);
+            TextView itemView = (TextView) view.getChildAt(i);
+            if ( itemView != null ) {
+                itemView.setTextColor(getResources().getColor(R.color.tweetCharCountColor));
+            }
+
+        }
     }
 
     private void setupFont(){

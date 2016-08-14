@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import com.codepath.apps.neattweet.Fragment.FavsFragment;
+import com.codepath.apps.neattweet.Fragment.FollowersListFragment;
+import com.codepath.apps.neattweet.Fragment.FriendsListFragment;
 import com.codepath.apps.neattweet.Fragment.RetweetsFragment;
 import com.codepath.apps.neattweet.Fragment.UserListMode;
 import com.codepath.apps.neattweet.Fragment.UserTimelineFragment;
@@ -33,6 +35,12 @@ public class UserDetailFragmentPagerAdapter extends SmartFragmentStatePagerAdapt
         else if (position == UserListMode.UserListModeRetweets.ordinal()) {
             return RetweetsFragment.newUserInstance(user_id);
         }
+        else if (position == UserListMode.UserListModeFriends.ordinal()) {
+            return FriendsListFragment.newUserInstance(user_id);
+        }
+        else if (position == UserListMode.UserListModeFollowers.ordinal()) {
+            return FollowersListFragment.newUserInstance(user_id);
+        }
         return null;
     }
 
@@ -60,6 +68,12 @@ public class UserDetailFragmentPagerAdapter extends SmartFragmentStatePagerAdapt
         }
         else if (position == UserListMode.UserListModeRetweets.ordinal()){
             return "Retweets";
+        }
+        else if (position == UserListMode.UserListModeFriends.ordinal()){
+            return "Friends";
+        }
+        else if (position == UserListMode.UserListModeFollowers.ordinal()){
+            return "Followers";
         }
         return null;
     }

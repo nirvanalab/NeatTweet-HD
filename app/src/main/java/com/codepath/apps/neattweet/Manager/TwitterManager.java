@@ -45,6 +45,18 @@ public class TwitterManager {
 
     }
 
+    public ArrayList<User> fetchUserListFromJsonArray(JSONArray userArr) throws JSONException {
+
+        ArrayList<User> userList = new ArrayList<User>();
+        for (int i=0;i<userArr.length();i++) {
+            JSONObject userObj = userArr.getJSONObject(i);
+            User user = new User(userObj);
+            userList.add(user);
+        }
+        return userList;
+
+    }
+
     public ArrayList<Tweet> getTimelineTweets(int limit,String maxId,final TwitterTimelineResponseHandler handler) {
 
         client.getHomeTimeline(limit,maxId,new JsonHttpResponseHandler(){
@@ -180,7 +192,7 @@ public class TwitterManager {
         return null;
     }
 
-    public ArrayList<Tweet> getFavs(int limit,String maxId,String userId,final TwitterTimelineResponseHandler handler) {
+    public void getFavs(int limit,String maxId,String userId,final TwitterTimelineResponseHandler handler) {
 
         client.getFavs(limit,maxId,userId,new JsonHttpResponseHandler(){
             @Override
@@ -202,10 +214,10 @@ public class TwitterManager {
                 handler.timelineResults(false,null);
             }
         });
-        return null;
+
     }
 
-    public ArrayList<Tweet> getRetweets(int limit,String maxId,final TwitterTimelineResponseHandler handler) {
+    public void getRetweets(int limit,String maxId,final TwitterTimelineResponseHandler handler) {
 
         client.getRetweets(limit,maxId,new JsonHttpResponseHandler(){
             @Override
@@ -227,9 +239,45 @@ public class TwitterManager {
                 handler.timelineResults(false,null);
             }
         });
-        return null;
     }
 
+    public ArrayList<Tweet> searchTweets(String query,final TwitterTimelineResponseHandler handler) {
+
+        client.searchTweets(query,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                //parse the jsonarray
+                try {
+                    ArrayList<Tweet> timeline = fetchTimelineFromJsonArray(response);
+                    handler.timelineResults(true,timeline);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    handler.timelineResults(false,null);
+                }
+            }
+
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                //parse the jsonarray
+                try {
+                    if (response.has("statuses")) {
+                        JSONArray statusArr = response.getJSONArray("statuses");
+                        ArrayList<Tweet> timeline = fetchTimelineFromJsonArray(statusArr);
+                        handler.timelineResults(true,timeline);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    handler.timelineResults(false,null);
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                //failure
+                Log.d("Failed timeline fetch",errorResponse.toString());
+                handler.timelineResults(false,null);
+            }
+        });
+        return null;
+    }
     public void postTweet(Context context, String content, final TweetResponseHandler handler) {
         client.postTweet(context,content,new JsonHttpResponseHandler(){
             @Override
@@ -304,5 +352,65 @@ public class TwitterManager {
 
         });
     }
+
+    public void getFriendsList(int limit,String userId,final UserFriendsFollowersResponseHandler handler) {
+
+        client.getFriends(limit,userId,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                //parse the jsonarray
+                try {
+                    if ( response.has("users")) {
+                        JSONArray userArr = response.getJSONArray("users");
+                        ArrayList<User> userList = fetchUserListFromJsonArray(userArr) ;
+                        handler.userResponseList(true,userList);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    handler.userResponseList(false,null);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                //failure
+                Log.d("Failed timeline fetch",errorResponse.toString());
+                handler.userResponseList(false,null);
+            }
+        });
+    }
+
+    public void getFollowers(int limit,String userId,final UserFriendsFollowersResponseHandler handler) {
+
+        client.getFollowers(limit,userId,new JsonHttpResponseHandler(){
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                //parse the jsonarray
+                try {
+                    if ( response.has("users")) {
+                        JSONArray userArr = response.getJSONArray("users");
+                        ArrayList<User> userList = fetchUserListFromJsonArray(userArr) ;
+                        handler.userResponseList(true,userList);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    handler.userResponseList(false,null);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                //failure
+                Log.d("Failed timeline fetch",errorResponse.toString());
+                handler.userResponseList(false,null);
+            }
+        });
+    }
+
+
+
+
 
 }

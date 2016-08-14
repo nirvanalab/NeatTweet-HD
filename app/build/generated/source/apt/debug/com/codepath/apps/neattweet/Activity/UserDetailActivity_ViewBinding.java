@@ -1,6 +1,7 @@
 // Generated code from Butter Knife. Do not modify!
 package com.codepath.apps.neattweet.Activity;
 
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class UserDetailActivity_ViewBinding<T extends UserDetailActivity> implem
     target.tabsDetail = finder.findRequiredViewAsType(source, R.id.tabsDetail, "field 'tabsDetail'", PagerSlidingTabStrip.class);
     target.viewPagerDetail = finder.findRequiredViewAsType(source, R.id.viewPagerDetail, "field 'viewPagerDetail'", ViewPager.class);
     target.ivBackdrop = finder.findRequiredViewAsType(source, R.id.ivBackdrop, "field 'ivBackdrop'", ImageView.class);
+    target.rootLayout = finder.findRequiredViewAsType(source, R.id.main_content, "field 'rootLayout'", CoordinatorLayout.class);
   }
 
   @Override
@@ -45,6 +47,7 @@ public class UserDetailActivity_ViewBinding<T extends UserDetailActivity> implem
     target.tabsDetail = null;
     target.viewPagerDetail = null;
     target.ivBackdrop = null;
+    target.rootLayout = null;
 
     this.target = null;
   }

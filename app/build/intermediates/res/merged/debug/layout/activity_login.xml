@@ -24,7 +24,7 @@
         android:layout_below="@id/ivTweetBird"
         android:textSize="50sp"
         android:textColor="@android:color/white"
-        android:text="Neat Tweet"
+        android:text="NeatTweet HD"
         android:id="@+id/tvNeatTweetTitle"
         />
 

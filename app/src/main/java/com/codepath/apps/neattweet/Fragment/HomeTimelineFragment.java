@@ -32,4 +32,6 @@ public class HomeTimelineFragment extends TweetBaseFragment implements ComposeTw
         super.timelineAdapter.notifyItemRangeInserted(0,1);
         super.layoutManager.scrollToPosition(0);
     }
+
+
 }

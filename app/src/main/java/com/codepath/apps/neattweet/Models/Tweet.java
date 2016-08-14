@@ -40,8 +40,14 @@ public class Tweet {
     }
     public Tweet(JSONObject tweetObj)throws JSONException {
 
-        createdAt = tweetObj.getString("created_at");
-        id = tweetObj.getString("id_str");
+        if ( tweetObj.has("created_at")) {
+            createdAt = tweetObj.getString("created_at");
+        }
+
+        if ( tweetObj.has("id_str")) {
+            id = tweetObj.getString("id_str");
+        }
+
         Log.d("Tweed Id:",id);
         content = tweetObj.getString("text");
 
@@ -238,5 +244,17 @@ public class Tweet {
 
     public boolean isRetweeted() {
         return isRetweeted;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setTweetType(TweetType tweetType) {
+        this.tweetType = tweetType;
     }
 }

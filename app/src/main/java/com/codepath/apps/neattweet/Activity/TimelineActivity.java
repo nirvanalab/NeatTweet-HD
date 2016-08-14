@@ -8,13 +8,19 @@ import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ToxicBakery.viewpager.transforms.TabletTransformer;
@@ -50,7 +56,14 @@ public class TimelineActivity extends AppCompatActivity implements TweetBaseFrag
     ImageView profilePic;
     User currentUser;
     TwitterFragmentPagerAdapter pagerAdapter;
+    ImageButton homeButton;
 
+    private int tabIcons[] = {R.drawable.home_icon, R.drawable.notification_icon, R.drawable.person_icon,R.drawable.message_icon};
+    private int tabIconsSelected[] = {R.drawable.home_icon_selected
+                                        ,R.drawable.notification_icon_selected
+                                        ,R.drawable.person_icon_selected
+                                        ,R.drawable.message_icon_selected
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +121,13 @@ public class TimelineActivity extends AppCompatActivity implements TweetBaseFrag
             // This method will be invoked when a new page becomes selected.
             @Override
             public void onPageSelected(int position) {
-
+                LinearLayout view = (LinearLayout) tabsTweet.getChildAt(0);
+                View itemView = (View) view.getChildAt(position);
+                if ( itemView.getClass() == ImageButton.class) {
+                    resetIcons();
+                    ImageButton imageButton = (ImageButton)itemView;
+                    imageButton.setImageDrawable(getResources().getDrawable(tabIconsSelected[position]));
+                }
             }
 
             // This method will be invoked when the current page is scrolled
@@ -135,6 +154,16 @@ public class TimelineActivity extends AppCompatActivity implements TweetBaseFrag
 //        return true;
 //    }
 
+    private void resetIcons(){
+        LinearLayout view = (LinearLayout) tabsTweet.getChildAt(0);
+        for (int i=0; i<4;i++) {
+            View itemView = (View) view.getChildAt(i);
+            if ( itemView.getClass() == ImageButton.class) {
+                ImageButton imageButton = (ImageButton)itemView;
+                imageButton.setImageDrawable(getResources().getDrawable(tabIcons[i]));
+            }
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -230,4 +259,86 @@ public class TimelineActivity extends AppCompatActivity implements TweetBaseFrag
         composeTweetFragment.mListener = (HomeTimelineFragment) pagerAdapter.getRegisteredFragment(0);
         composeTweetFragment.show(fm,"compose fragment");
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.tweet_search_menu,menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        setupSearch(searchItem);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setGravity(Gravity.CENTER);
+
+        return true;
+    }
+
+    private void setupSearch(MenuItem searchItem){
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                LinearLayout view = (LinearLayout) tabsTweet.getChildAt(0);
+                View itemView = view.getChildAt(0);
+                if (itemView.getClass() == ImageButton.class) {
+                    homeButton = (ImageButton)itemView;
+                }
+                view.removeView(itemView);
+                TextView textView = new TextView(getApplicationContext());
+                textView.setTextColor(getResources().getColor(R.color.tweetCharCountColor));
+                textView.setTextSize(20);
+                textView.setWidth(250);
+                view.addView(textView,0);
+                textView.setText("Search Results: "+query);
+
+                HomeTimelineFragment homeTimelineFragment = (HomeTimelineFragment) pagerAdapter.getRegisteredFragment(0);
+                homeTimelineFragment.performSearch(query);
+                searchView.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if ( newText.isEmpty() ) {
+                    //clear
+                    refreshHomeTimeline();
+                }
+                return true;
+            }
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                refreshHomeTimeline();
+                return true;
+            }
+        });
+    }
+
+    void refreshHomeTimeline(){
+        LinearLayout view = (LinearLayout) tabsTweet.getChildAt(0);
+        View itemView = (View) view.getChildAt(0);
+        if (itemView.getClass() == TextView.class) {
+            view.removeView(itemView);
+
+            if (homeButton != null) {
+                view.addView(homeButton,0);
+            }
+            else {
+                ImageButton imageButton = new ImageButton(getApplicationContext());
+                imageButton.setImageDrawable(getResources().getDrawable(R.drawable.home_icon));
+                imageButton.setScaleType(ImageView.ScaleType.CENTER);
+                view.addView(imageButton,0);
+            }
+
+
+        }
+        else if (itemView.getClass() == ImageButton.class) {
+            homeButton = (ImageButton)homeButton;
+        }
+        HomeTimelineFragment homeTimelineFragment = (HomeTimelineFragment) pagerAdapter.getRegisteredFragment(0);
+        homeTimelineFragment.clearSearch();
+
+
+    }
+
 }

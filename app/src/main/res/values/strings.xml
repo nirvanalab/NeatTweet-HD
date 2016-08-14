@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Neat Twitter</string>
+    <string name="app_name">NeatTweet HD</string>
     <string name="login_label">Connect</string>
 
     <!-- TODO: Remove or change this placeholder text -->

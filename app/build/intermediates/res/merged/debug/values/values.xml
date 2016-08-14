@@ -316,12 +316,13 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <string name="app_name">Neat Twitter</string>
+    <string name="app_name">NeatTweet HD</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="bottom_sheet_behavior" translatable="false">android.support.design.widget.BottomSheetBehavior</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="login_label">Connect</string>
+    <string name="no_internet_message">No Internet available! Please connect to a network</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="tweet_action_text">Tweet</string>
     <string name="tweet_text_hint">What\'s happening?</string>

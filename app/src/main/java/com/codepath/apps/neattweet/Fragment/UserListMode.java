@@ -3,6 +3,8 @@ package com.codepath.apps.neattweet.Fragment;
 public enum UserListMode {
     UserListModeTimeline
     ,UserListModeFavs
+    ,UserListModeFriends
+    ,UserListModeFollowers
     ,UserListModeRetweets
     ,UserListModeCount
 

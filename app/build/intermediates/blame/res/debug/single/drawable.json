@@ -272,6 +272,10 @@
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_list_selector_holo_light.xml"
     },
     {
+        "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/build/intermediates/res/merged/debug/drawable/search_icon_white.png",
+        "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week4/NeatTweetHD/app/src/main/res/drawable/search_icon_white.png"
+    },
+    {
         "merged": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/res/merged/debug/drawable/abc_text_cursor_material.xml",
         "source": "/Users/vidhurvoora/Dev/Android/CodePath/Week3/NeatTweet/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/24.1.1/res/drawable/abc_text_cursor_material.xml"
     },

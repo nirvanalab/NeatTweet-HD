@@ -8,5 +8,6 @@ public enum TweetType {
     TextTweet,
     ImageTweet,
     VideoTweet,
+    UserItemTweet,
     WebviewTweet
 }

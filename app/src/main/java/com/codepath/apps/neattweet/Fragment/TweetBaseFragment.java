@@ -9,16 +9,20 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.codepath.apps.neattweet.Activity.TimelineActivity;
 import com.codepath.apps.neattweet.Adapter.TwitterTimelineAdapter;
 import com.codepath.apps.neattweet.Manager.TwitterManager;
+import com.codepath.apps.neattweet.Manager.UserFriendsFollowersResponseHandler;
 import com.codepath.apps.neattweet.Models.Tweet;
+import com.codepath.apps.neattweet.Models.TweetType;
 import com.codepath.apps.neattweet.Models.TwitterTimelineResponseHandler;
 import com.codepath.apps.neattweet.Models.User;
 import com.codepath.apps.neattweet.R;
 import com.codepath.apps.neattweet.ThirdPartyDecoration.DividerItemDecoration;
 import com.codepath.apps.neattweet.ThirdPartyDecoration.InsetDecoration;
+import com.codepath.apps.neattweet.Utility.CustomCatLoader;
 import com.codepath.apps.neattweet.Utility.EndlessRecyclerViewScrollListener;
 
 import java.util.ArrayList;
@@ -42,6 +46,8 @@ public class TweetBaseFragment extends Fragment  {
     ListMode listMode;
     UserListMode userListMode;
     String mUserId;
+    CustomCatLoader mCatView;
+    ProgressBar pb;
 
     public interface ComposeTweetActionListener {
         public void onAddNewTweetInitiated();
@@ -63,6 +69,7 @@ public class TweetBaseFragment extends Fragment  {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //set by derived class?
+        mCatView = new CustomCatLoader();
         Bundle bundle = getArguments();
         if ( bundle != null ) {
             mUserId = bundle.getString("userId");
@@ -86,6 +93,7 @@ public class TweetBaseFragment extends Fragment  {
         rvTimeline = (RecyclerView)view.findViewById(R.id.rvTimeline);
         swipeContainer = (SwipeRefreshLayout)view.findViewById(R.id.swipeContainer);
         fabAddTweet = (FloatingActionButton)view.findViewById(R.id.fabAddTweet);
+        pb = (ProgressBar)view.findViewById(R.id.pbLoading);
 
         fabAddTweet.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +118,18 @@ public class TweetBaseFragment extends Fragment  {
         setupSwipeRefresh();
 
         //first load
-        fetchTweets(fetchCount);
+        if ( userListMode == UserListMode.UserListModeFriends) {
+            fetchFriendsList(25,mUserId);
+        }
+        else if (userListMode == UserListMode.UserListModeFollowers) {
+            fetchFollowersList(25,mUserId);
+        }
+        else {
+            fetchTweets(fetchCount);
+        }
+
+        pb.setVisibility(ProgressBar.VISIBLE);
+        //mCatView.show(getFragmentManager(),"");
     }
 
     private void setupTimelineView() {
@@ -189,6 +208,8 @@ public class TweetBaseFragment extends Fragment  {
             @Override
             public void timelineResults(boolean isSuccess, ArrayList<Tweet> tweets) {
                 if (isSuccess ) {
+                   // mCatView.dismiss();
+                    pb.setVisibility(ProgressBar.INVISIBLE);
                    updateTimeline(tweets);
                 }
             }
@@ -200,6 +221,8 @@ public class TweetBaseFragment extends Fragment  {
             @Override
             public void timelineResults(boolean isSuccess, ArrayList<Tweet> tweets) {
                 if (isSuccess ) {
+//                    mCatView.dismiss();
+                    pb.setVisibility(ProgressBar.INVISIBLE);
                     updateTimeline(tweets);
                 }
             }
@@ -211,6 +234,8 @@ public class TweetBaseFragment extends Fragment  {
             @Override
             public void timelineResults(boolean isSuccess, ArrayList<Tweet> tweets) {
                 if (isSuccess ) {
+//                    mCatView.dismiss();
+                    pb.setVisibility(ProgressBar.INVISIBLE);
                     updateTimeline(tweets);
                 }
             }
@@ -222,6 +247,8 @@ public class TweetBaseFragment extends Fragment  {
             @Override
             public void timelineResults(boolean isSuccess, ArrayList<Tweet> tweets) {
                 if (isSuccess ) {
+//                    mCatView.dismiss();
+                    pb.setVisibility(ProgressBar.INVISIBLE);
                     updateTimeline(tweets);
                 }
             }
@@ -233,6 +260,8 @@ public class TweetBaseFragment extends Fragment  {
             @Override
             public void timelineResults(boolean isSuccess, ArrayList<Tweet> tweets) {
                 if (isSuccess ) {
+//                    mCatView.dismiss();
+                    pb.setVisibility(ProgressBar.INVISIBLE);
                     updateTimeline(tweets);
                 }
             }
@@ -244,6 +273,8 @@ public class TweetBaseFragment extends Fragment  {
             @Override
             public void timelineResults(boolean isSuccess, ArrayList<Tweet> tweets) {
                 if (isSuccess ) {
+//                    mCatView.dismiss();
+                    pb.setVisibility(ProgressBar.INVISIBLE);
                     updateTimeline(tweets);
                 }
             }
@@ -266,5 +297,67 @@ public class TweetBaseFragment extends Fragment  {
         timelineAdapter.notifyItemRangeRemoved(0,existingCount);
     }
 
+    public void performSearch(String query) {
+        TwitterManager.getSharedInstance().searchTweets(query, new TwitterTimelineResponseHandler() {
+            @Override
+            public void timelineResults(boolean isSuccess, ArrayList<Tweet> tweets) {
+                if (isSuccess) {
+                    //clear
+                    clearTweets();
+                    timeline.addAll(tweets);
+                    timelineAdapter.notifyItemRangeInserted(0,tweets.size());
+                }
+            }
+        });
+    }
+
+    public void clearSearch() {
+        clearTweets();
+        fetchTweets(25);
+    }
+
+    public void fetchFriendsList(int limit,String userId) {
+        TwitterManager.getSharedInstance().getFriendsList(limit, userId, new UserFriendsFollowersResponseHandler() {
+            @Override
+            public void userResponseList(boolean isSuccess, ArrayList<User> userList) {
+
+                ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
+                //convert the userlist to tweets just to be able to use the existing view
+                //TODO this is a temp hack
+                for ( User user : userList) {
+                    Tweet tweet = new Tweet();
+                    tweet.setTweetType(TweetType.UserItemTweet);
+                    tweet.setContent(user.getDescription());
+                    tweet.setUser(user);
+                    tweetList.add(tweet);
+                }
+
+                updateTimeline(tweetList);
+                pb.setVisibility(ProgressBar.INVISIBLE);
+            }
+        });
+    }
+
+    public void fetchFollowersList(int limit,String userId) {
+        TwitterManager.getSharedInstance().getFollowers(limit, userId, new UserFriendsFollowersResponseHandler() {
+            @Override
+            public void userResponseList(boolean isSuccess, ArrayList<User> userList) {
+
+                ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
+                //convert the userlist to tweets just to be able to use the existing view
+                //TODO this is a temp hack
+                for ( User user : userList) {
+                    Tweet tweet = new Tweet();
+                    tweet.setTweetType(TweetType.UserItemTweet);
+                    tweet.setContent(user.getDescription());
+                    tweet.setUser(user);
+                    tweetList.add(tweet);
+                }
+
+                updateTimeline(tweetList);
+                pb.setVisibility(ProgressBar.INVISIBLE);
+            }
+        });
+    }
 
 }
