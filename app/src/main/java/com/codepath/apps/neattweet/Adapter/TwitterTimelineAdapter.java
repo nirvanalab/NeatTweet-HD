@@ -70,6 +70,9 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public int getItemViewType(int position) {
         //More to come
         Tweet tweet = mTweets.get(position);
+        if ( tweet == null) {
+            return TweetType.TextTweet.ordinal();
+        }
         return tweet.getTweetType().ordinal();
     }
 
@@ -143,7 +146,7 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         final Tweet tweet = mTweets.get(position);
 
-
+        if (tweet == null) return;
 
         setupFonts(viewHolder);
 
@@ -261,7 +264,7 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             }
         });
 
-        if ( tweet.getTweetType() == TweetType.UserItemTweet) {
+        if ( tweet!=null && tweet.getTweetType() == TweetType.UserItemTweet) {
             //hide the action components
             viewHolder.getIvFav().setVisibility(View.INVISIBLE);
             viewHolder.getTvFavCount().setVisibility(View.INVISIBLE);

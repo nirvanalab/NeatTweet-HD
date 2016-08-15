@@ -2,7 +2,7 @@
 
 **NeatTweet HD** is an android app that allows a user to view home and mentions timelines, view user profiles with user timelines, as well as compose and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
-Time spent: **25** hours spent in total
+Time spent: **35** hours spent in total
 
 ## User Stories
 
@@ -49,6 +49,7 @@ The following **additional** features are implemented:
 * [x] Shows list of Favorites and Retweets (only for the current user) in the user detail page
 * [x] Integrated [collapsable toolbar with coordinator layout](http://guides.codepath.com/android/Handling-Scrolls-with-CoordinatorLayout) and scroll effects
 * [x] Dynamically changes the text color for the currently selected tab
+* [x] Fetch user banner image for each user to display in the user detail as background.
 
 
 

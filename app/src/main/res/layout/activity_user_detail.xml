@@ -159,7 +159,7 @@
             android:layout_height="75dp"
             app:pstsUnderlineColor="@android:color/holo_blue_light"
             app:pstsIndicatorColor="@color/addTweetBackgroundColor"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@color/tweetCharCountColor"
             app:pstsShouldExpand="true"
             app:pstsTextAllCaps="true" />
