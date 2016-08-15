@@ -378,12 +378,15 @@ public class TwitterTimelineAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             TweetVideoViewHolder videoViewHolder = (TweetVideoViewHolder) holder;
             final ScalableVideoView vvTweetVideo = videoViewHolder.getVvTweetVideo();
             try {
-                vvTweetVideo.prepare(new MediaPlayer.OnPreparedListener() {
-                    @Override
-                    public void onPrepared(MediaPlayer mp) {
-                        vvTweetVideo.start();
-                    }
-                });
+                if ( vvTweetVideo != null) {
+                    vvTweetVideo.prepare(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            vvTweetVideo.start();
+                        }
+                    });
+                }
+
             } catch (IOException ioe) {
                 //ignore
             }
